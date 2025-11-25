@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import AdUnit from "../components/AdUnit";
+import SketchLoader from "../components/SketchLoader";
 
 export default function GeneratePage() {
   const [prompt, setPrompt] = useState("");
@@ -119,10 +120,16 @@ export default function GeneratePage() {
         )}
       </form>
 
-      {/* Image Output */}
-      {imageUrl && (
+      {/* LOADER — shown while generating */}
+      {loading && (
         <div className="mt-10 bg-white dark:bg-gray-800 rounded-2xl shadow-md p-6">
+          <SketchLoader />
+        </div>
+      )}
 
+      {/* Image Output */}
+      {!loading && imageUrl && (
+        <div className="mt-10 bg-white dark:bg-gray-800 rounded-2xl shadow-md p-6">
           <img
             src={imageUrl}
             alt="Generated coloring page"

@@ -2,13 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
 import { createClient } from "@supabase/supabase-js";
 
-// ---- Supabase admin client (service role) ----
+// ---- Supabase admin client ----
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.SUPABASE_SERVICE_ROLE_KEY!,
-  {
-    auth: { persistSession: false },
-  }
+  { auth: { persistSession: false } }
 );
 
 // ---- OpenAI client ----
@@ -16,20 +14,32 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY!,
 });
 
-// Helper: keep image inside frame
-function buildEnhancedPrompt(userPrompt: string) {
+/**
+ * Safe, border-free, margin-protected coloring page prompt (5% margins)
+ */
+function buildSafeMarginPrompt(userPrompt: string) {
   return `
-Black-and-white coloring page, thick clean outlines, no shading, no gray.
-Single main subject centered.
-Entire subject fully visible inside the frame with generous margin.
-Do not crop or cut off any part of the subject.
-Leave whitespace around edges.
-Simple background if any.
-Subject: ${userPrompt}
-`.trim();
+Create a black-and-white coloring page in cartoon line art.
+
+FORMAT:
+- Portrait layout (1024x1536).
+- Do NOT draw any borders, boxes, frames, or outlines around the page.
+- Keep the drawing comfortably inside the page with clear space on all sides.
+- Leave a small blank white margin (about 10% of the page) on every edge.
+- Nothing may touch or come close to the edges of the page.
+- Do NOT zoom in. Do NOT fill the entire page.
+- Keep the subject centered and sized appropriately, leaving clean breathing room around it.
+- Use bold, clean black outlines only. No shading, no grayscale, no colors.
+- Plain white background.
+
+CONTENT:
+${userPrompt}
+  `.trim();
 }
 
-// Helper: auto-categorize + tags (safe JSON)
+/**
+ * Categorization & Tagging Logic
+ */
 async function autoCategorizeAndTag(prompt: string): Promise<{
   category: string;
   tags: string[];
@@ -55,7 +65,7 @@ async function autoCategorizeAndTag(prompt: string): Promise<{
         {
           role: "system",
           content: `
-You are categorizing coloring page prompts.
+You categorize coloring page prompts.
 Pick exactly ONE category from this list:
 ${categories.join(", ")}
 
@@ -76,18 +86,19 @@ Respond ONLY in JSON:
       ? parsed.category
       : "Uncategorized";
 
-    const tags =
-      Array.isArray(parsed.tags) && parsed.tags.length
-        ? parsed.tags.map((t: any) => String(t).slice(0, 30))
-        : [];
+    const tags = Array.isArray(parsed.tags)
+      ? parsed.tags.map((t: any) => String(t).slice(0, 30))
+      : [];
 
     return { category, tags };
-  } catch (e) {
-    // Fallback if JSON parse fails
+  } catch {
     return { category: "Uncategorized", tags: [] };
   }
 }
 
+/**
+ * POST — Generate → Upload → Store
+ */
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
@@ -97,23 +108,21 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Missing prompt" }, { status: 400 });
     }
 
-    // 1) Categorize + tag
+    // 1) Auto category + tags
     const { category, tags } = await autoCategorizeAndTag(prompt);
 
-    // 2) Generate image (NO invalid params!)
-    const enhancedPrompt = buildEnhancedPrompt(prompt);
+    // 2) Build margin-safe prompt
+    const enhancedPrompt = buildSafeMarginPrompt(prompt);
 
+    // 3) Generate portrait 1024x1536 coloring page
     const imageResponse = await openai.images.generate({
       model: "gpt-image-1",
       prompt: enhancedPrompt,
-      size: "1024x1024",
+      size: "1024x1536",
       n: 1,
-      // optional:
-      // quality: "high",
     });
 
     const b64 = imageResponse.data?.[0]?.b64_json;
-
     if (!b64) {
       return NextResponse.json(
         { error: "No image returned from OpenAI." },
@@ -121,15 +130,14 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 3) Convert base64 → buffer
     const imageBuffer = Buffer.from(b64, "base64");
 
-    // 4) Upload to your EXISTING bucket
+    // 4) Upload to Supabase Storage
     const safeCategory = (category || "Uncategorized").replace(/\s+/g, "-");
     const fileName = `${safeCategory}/image_${Date.now()}.png`;
 
     const { error: uploadError } = await supabaseAdmin.storage
-      .from("coloring-pages") // <-- MUST MATCH YOUR BUCKET
+      .from("coloring-pages")
       .upload(fileName, imageBuffer, {
         contentType: "image/png",
         upsert: false,
@@ -143,14 +151,14 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 5) Public URL
+    // 5) Get public URL
     const { data: urlData } = supabaseAdmin.storage
       .from("coloring-pages")
       .getPublicUrl(fileName);
 
     const publicUrl = urlData.publicUrl;
 
-    // 6) Save to images table
+    // 6) Insert row into DB
     const { data: row, error: insertError } = await supabaseAdmin
       .from("images")
       .insert({
@@ -165,16 +173,16 @@ export async function POST(req: NextRequest) {
     if (insertError) {
       console.error("Supabase insert error:", insertError);
       return NextResponse.json(
-        { error: "Supabase insert failed" },
+        { error: "Database insert failed." },
         { status: 500 }
       );
     }
 
     return NextResponse.json({ image: row }, { status: 200 });
   } catch (err) {
-    console.error("Generate route error:", err);
+    console.error("Generate error:", err);
     return NextResponse.json(
-      { error: "Unexpected server error" },
+      { error: "Unexpected server error." },
       { status: 500 }
     );
   }
