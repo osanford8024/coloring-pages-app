@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import AdUnit from "../components/AdUnit";
 
 const LIMIT = 12;
 
@@ -66,7 +67,6 @@ export default function GalleryPage() {
       } else {
         setImages((prev) => {
           const merged = [...prev, ...newImages];
-          // de-dupe by id
           return Array.from(
             new Map(merged.map((img) => [img.id, img])).values()
           );
@@ -162,7 +162,6 @@ export default function GalleryPage() {
     }
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isModalOpen, images.length]);
 
   /**
@@ -244,6 +243,11 @@ export default function GalleryPage() {
         ))}
       </div>
 
+      {/* AD BELOW CATEGORY FILTERS */}
+      <div className="my-6 flex justify-center">
+        <AdUnit slot="1410253778" />
+      </div>
+
       {/* IMAGE GRID */}
       {images.length === 0 && !isLoading ? (
         <p className="text-center text-gray-500">
@@ -252,19 +256,28 @@ export default function GalleryPage() {
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
           {images.map((img, idx) => (
-            <button
-              key={img.id}
-              onClick={() => openModal(idx)}
-              className="w-full border rounded-lg overflow-hidden shadow-sm bg-white dark:bg-gray-800 hover:shadow-md transition"
-              aria-label={`Open image ${img.prompt}`}
-            >
-              <img
-  src={img.image_url}
-  alt={img.prompt}
-  className="w-full object-contain aspect-square"
-/>
+            <div key={`item-${img.id}`} className="contents">
 
-            </button>
+              {/* IMAGE ITEM */}
+              <button
+                onClick={() => openModal(idx)}
+                className="w-full border rounded-lg overflow-hidden shadow-sm bg-white dark:bg-gray-800 hover:shadow-md transition"
+                aria-label={`Open image ${img.prompt}`}
+              >
+                <img
+                  src={img.image_url}
+                  alt={img.prompt}
+                  className="w-full object-contain aspect-square"
+                />
+              </button>
+
+              {/* AD AFTER FIRST 12 IMAGES */}
+              {idx === 11 && (
+                <div className="col-span-full my-8 flex justify-center">
+                  <AdUnit slot="3533127881" />
+                </div>
+              )}
+            </div>
           ))}
         </div>
       )}
@@ -273,6 +286,11 @@ export default function GalleryPage() {
       {isLoading && (
         <p className="text-center text-gray-500 my-4">Loading...</p>
       )}
+
+      {/* BOTTOM OF PAGE AD */}
+      <div className="my-10 flex justify-center">
+        <AdUnit slot="9631632376" />
+      </div>
 
       {/* MODAL */}
       {isModalOpen && currentImage && (

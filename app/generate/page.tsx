@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import AdUnit from "../components/AdUnit";
 
 export default function GeneratePage() {
   const [prompt, setPrompt] = useState("");
@@ -75,6 +76,11 @@ export default function GeneratePage() {
         </p>
       </div>
 
+      {/* AD — Top of Page */}
+      <div className="my-6 flex justify-center">
+        <AdUnit slot="9021258288" />
+      </div>
+
       {/* Form */}
       <form
         onSubmit={generateImage}
@@ -91,6 +97,11 @@ export default function GeneratePage() {
             className="w-full px-4 py-3 rounded-lg border dark:border-gray-700 bg-white dark:bg-gray-900 resize-none text-base"
             required
           />
+        </div>
+
+        {/* AD — Under Textarea */}
+        <div className="my-4 flex justify-center">
+          <AdUnit slot="5278180744" />
         </div>
 
         <button
@@ -111,11 +122,17 @@ export default function GeneratePage() {
       {/* Image Output */}
       {imageUrl && (
         <div className="mt-10 bg-white dark:bg-gray-800 rounded-2xl shadow-md p-6">
+
           <img
             src={imageUrl}
             alt="Generated coloring page"
             className="w-full rounded-lg border dark:border-gray-700"
           />
+
+          {/* AD — Under Generated Image */}
+          <div className="my-6 flex justify-center">
+            <AdUnit slot="9899225683" />
+          </div>
 
           <div className="mt-4 flex flex-col sm:flex-row gap-2 justify-center">
             <button
@@ -133,6 +150,11 @@ export default function GeneratePage() {
           </div>
         </div>
       )}
+
+      {/* AD — Footer / Bottom of Page */}
+      <div className="my-10 flex justify-center">
+        <AdUnit slot="2652017409" />
+      </div>
     </main>
   );
 }
