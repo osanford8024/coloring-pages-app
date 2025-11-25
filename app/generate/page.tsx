@@ -72,7 +72,7 @@ export default function GeneratePage() {
       {/* Title */}
       <div className="text-center mb-8">
         <h1 className="text-4xl font-bold">Generate a Coloring Page</h1>
-        <p className="text-gray-600 dark:text-gray-300 mt-2">
+        <p className="text-gray-600 mt-2">
           Describe your idea and instantly create a printable coloring page.
         </p>
       </div>
@@ -85,7 +85,7 @@ export default function GeneratePage() {
       {/* Form */}
       <form
         onSubmit={generateImage}
-        className="bg-white dark:bg-gray-800 rounded-2xl shadow-md p-6 space-y-4"
+        className="bg-white rounded-2xl shadow-md p-6 space-y-4"
       >
         {/* PROMPT TEXTAREA */}
         <div className="space-y-2">
@@ -95,7 +95,7 @@ export default function GeneratePage() {
             onChange={(e) => setPrompt(e.target.value)}
             placeholder="Example: a baby dragon holding balloons while sitting on a cloud"
             rows={5}
-            className="w-full px-4 py-3 rounded-lg border dark:border-gray-700 bg-white dark:bg-gray-900 resize-none text-base"
+            className="w-full px-4 py-3 rounded-lg border bg-white resize-none text-base"
             required
           />
         </div>
@@ -114,29 +114,29 @@ export default function GeneratePage() {
         </button>
 
         {error && (
-          <p className="text-red-500 text-sm bg-red-50 dark:bg-red-900/20 p-3 rounded-lg">
+          <p className="text-red-500 text-sm bg-red-50 p-3 rounded-lg">
             {error}
           </p>
         )}
       </form>
 
-      {/* LOADER — shown while generating */}
+      {/* LOADER */}
       {loading && (
-        <div className="mt-10 bg-white dark:bg-gray-800 rounded-2xl shadow-md p-6">
+        <div className="mt-10 bg-white rounded-2xl shadow-md p-6">
           <SketchLoader />
         </div>
       )}
 
-      {/* Image Output */}
+      {/* RESULT */}
       {!loading && imageUrl && (
-        <div className="mt-10 bg-white dark:bg-gray-800 rounded-2xl shadow-md p-6">
+        <div className="mt-10 bg-white rounded-2xl shadow-md p-6">
           <img
             src={imageUrl}
             alt="Generated coloring page"
-            className="w-full rounded-lg border dark:border-gray-700"
+            className="w-full rounded-lg border"
           />
 
-          {/* AD — Under Generated Image */}
+          {/* AD — Below Image */}
           <div className="my-6 flex justify-center">
             <AdUnit slot="9899225683" />
           </div>
@@ -148,6 +148,7 @@ export default function GeneratePage() {
             >
               Download PNG
             </button>
+
             <button
               onClick={printImage}
               className="px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-900"
@@ -158,7 +159,7 @@ export default function GeneratePage() {
         </div>
       )}
 
-      {/* AD — Footer / Bottom of Page */}
+      {/* AD — Footer */}
       <div className="my-10 flex justify-center">
         <AdUnit slot="2652017409" />
       </div>

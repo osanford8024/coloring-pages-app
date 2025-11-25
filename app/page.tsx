@@ -14,16 +14,18 @@ export default function HomePage() {
         <h1 className="text-5xl font-extrabold mb-4">
           Welcome to <span className="text-blue-600">PaziPagesAI</span>
         </h1>
-        <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+
+        {/* Removed dark:text-gray-300 */}
+        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
           Generate fun, unique, high-quality coloring pages using AI.
           Explore our gallery or create your own instant coloring page.
         </p>
 
-        
         <AdUnit slot="2296616571" />
 
-
         <div className="mt-8 flex justify-center gap-4">
+
+          {/* Primary Button */}
           <a
             href="/generate"
             className="px-6 py-3 bg-black text-white rounded-lg text-lg font-medium hover:bg-gray-800"
@@ -31,12 +33,14 @@ export default function HomePage() {
             Get a Coloring Page
           </a>
 
+          {/* Secondary Button — cleaned of dark mode */}
           <a
             href="/gallery"
-            className="px-6 py-3 bg-gray-200 dark:bg-gray-700 dark:text-white rounded-lg text-lg font-medium hover:bg-gray-300 dark:hover:bg-gray-600"
+            className="px-6 py-3 bg-gray-200 text-gray-900 rounded-lg text-lg font-medium hover:bg-gray-300"
           >
             View Gallery
           </a>
+
         </div>
       </section>
 

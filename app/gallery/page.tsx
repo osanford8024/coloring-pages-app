@@ -36,11 +36,7 @@ export default function GalleryPage() {
     "Flowers",
   ];
 
-  /**
-   * -------------------------------
-   * LOAD IMAGES FROM API
-   * -------------------------------
-   */
+  /* LOAD IMAGES */
   async function loadImages(
     reset = false,
     categoryOverride: string | null = null
@@ -82,32 +78,20 @@ export default function GalleryPage() {
     setIsLoading(false);
   }
 
-  /**
-   * ----------------------------------
-   * LOAD INITIAL IMAGES
-   * ----------------------------------
-   */
+  /* INITIAL LOAD */
   useEffect(() => {
     loadImages(true, null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  /**
-   * ----------------------------------
-   * HANDLE CATEGORY CHANGE
-   * ----------------------------------
-   */
+  /* CATEGORY CHANGE */
   function selectCategory(category: string | null) {
     setActiveCategory(category);
     setPage(0);
     loadImages(true, category);
   }
 
-  /**
-   * ----------------------------------
-   * INFINITE SCROLL
-   * ----------------------------------
-   */
+  /* INFINITE SCROLL */
   useEffect(() => {
     function onScroll() {
       if (
@@ -119,17 +103,11 @@ export default function GalleryPage() {
         loadImages();
       }
     }
-
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading, hasMore, page, activeCategory]);
 
-  /**
-   * ----------------------------------
-   * MODAL HELPERS
-   * ----------------------------------
-   */
+  /* MODAL HELPERS */
   const currentImage = useMemo(
     () => images[modalIndex],
     [images, modalIndex]
@@ -152,7 +130,7 @@ export default function GalleryPage() {
     setModalIndex((prev) => (prev + 1) % images.length);
   }
 
-  // ESC closes modal
+  /* ESC close modal */
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
       if (!isModalOpen) return;
@@ -160,15 +138,12 @@ export default function GalleryPage() {
       if (e.key === "ArrowLeft") prevImage();
       if (e.key === "ArrowRight") nextImage();
     }
+
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [isModalOpen, images.length]);
 
-  /**
-   * ----------------------------------
-   * DOWNLOAD / PRINT
-   * ----------------------------------
-   */
+  /* DOWNLOAD / PRINT */
   function downloadCurrent() {
     if (!currentImage) return;
     const link = document.createElement("a");
@@ -208,9 +183,11 @@ export default function GalleryPage() {
         </body>
       </html>
     `);
+
     w.document.close();
   }
 
+  /* UI */
   return (
     <div className="px-4 md:px-6 lg:px-10 py-6">
       <h1 className="text-3xl font-bold mb-6">Gallery</h1>
@@ -221,8 +198,8 @@ export default function GalleryPage() {
           onClick={() => selectCategory(null)}
           className={`px-4 py-2 whitespace-nowrap rounded-full border text-sm font-medium transition ${
             activeCategory === null
-              ? "bg-black text-white border-black dark:bg-white dark:text-black dark:border-white"
-              : "bg-gray-100 dark:bg-gray-700 dark:text-gray-200 hover:bg-gray-200"
+              ? "bg-black text-white border-black"
+              : "bg-gray-100 hover:bg-gray-200"
           }`}
         >
           All
@@ -234,8 +211,8 @@ export default function GalleryPage() {
             onClick={() => selectCategory(cat)}
             className={`px-4 py-2 whitespace-nowrap rounded-full border text-sm font-medium transition ${
               activeCategory === cat
-                ? "bg-black text-white border-black dark:bg-white dark:text-black dark:border-white"
-                : "bg-gray-100 dark:bg-gray-700 dark:text-gray-200 hover:bg-gray-200"
+                ? "bg-black text-white border-black"
+                : "bg-gray-100 hover:bg-gray-200"
             }`}
           >
             {cat}
@@ -243,7 +220,7 @@ export default function GalleryPage() {
         ))}
       </div>
 
-      {/* AD BELOW CATEGORY FILTERS */}
+      {/* AD BELOW FILTERS */}
       <div className="my-6 flex justify-center">
         <AdUnit slot="1410253778" />
       </div>
@@ -257,11 +234,9 @@ export default function GalleryPage() {
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
           {images.map((img, idx) => (
             <div key={`item-${img.id}`} className="contents">
-
-              {/* IMAGE ITEM */}
               <button
                 onClick={() => openModal(idx)}
-                className="w-full border rounded-lg overflow-hidden shadow-sm bg-white dark:bg-gray-800 hover:shadow-md transition"
+                className="w-full border rounded-lg overflow-hidden shadow-sm bg-white hover:shadow-md transition"
                 aria-label={`Open image ${img.prompt}`}
               >
                 <img
@@ -271,7 +246,7 @@ export default function GalleryPage() {
                 />
               </button>
 
-              {/* AD AFTER FIRST 12 IMAGES */}
+              {/* AD AFTER 12 IMAGES */}
               {idx === 11 && (
                 <div className="col-span-full my-8 flex justify-center">
                   <AdUnit slot="3533127881" />
@@ -282,12 +257,12 @@ export default function GalleryPage() {
         </div>
       )}
 
-      {/* LOADING INDICATOR */}
+      {/* LOADING */}
       {isLoading && (
         <p className="text-center text-gray-500 my-4">Loading...</p>
       )}
 
-      {/* BOTTOM OF PAGE AD */}
+      {/* BOTTOM AD */}
       <div className="my-10 flex justify-center">
         <AdUnit slot="9631632376" />
       </div>
@@ -299,18 +274,16 @@ export default function GalleryPage() {
           onClick={closeModal}
         >
           <div
-            className="relative bg-white dark:bg-gray-900 rounded-xl shadow-xl w-full max-w-4xl p-3 md:p-4"
+            className="relative bg-white rounded-xl shadow-xl w-full max-w-4xl p-3 md:p-4"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Close */}
             <button
               onClick={closeModal}
-              className="absolute top-2 right-2 text-gray-700 dark:text-gray-200 bg-gray-100 dark:bg-gray-800 rounded-full px-3 py-1 text-sm hover:opacity-80"
+              className="absolute top-2 right-2 text-gray-700 bg-gray-100 rounded-full px-3 py-1 text-sm hover:opacity-80"
             >
               Close ✕
             </button>
 
-            {/* Image */}
             <div className="flex items-center justify-center">
               <img
                 src={currentImage.image_url}
@@ -319,11 +292,11 @@ export default function GalleryPage() {
               />
             </div>
 
-            {/* Prompt / Category */}
             <div className="mt-3 text-center">
-              <p className="text-sm md:text-base text-gray-800 dark:text-gray-100">
+              <p className="text-sm md:text-base text-gray-800">
                 {currentImage.prompt}
               </p>
+
               {currentImage.category && (
                 <p className="text-xs text-gray-500 mt-1">
                   Category: {currentImage.category}
@@ -331,32 +304,31 @@ export default function GalleryPage() {
               )}
             </div>
 
-            {/* Controls */}
             <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
               <button
                 onClick={prevImage}
-                className="px-4 py-2 rounded-lg border bg-gray-100 dark:bg-gray-800 dark:text-gray-100 hover:bg-gray-200 transition"
+                className="px-4 py-2 rounded-lg border bg-gray-100 hover:bg-gray-200 transition"
               >
                 ◀ Prev
               </button>
 
               <button
                 onClick={downloadCurrent}
-                className="px-4 py-2 rounded-lg border bg-black text-white dark:bg-white dark:text-black hover:opacity-90 transition"
+                className="px-4 py-2 rounded-lg border bg-black text-white hover:opacity-90 transition"
               >
                 Download PNG
               </button>
 
               <button
                 onClick={printCurrent}
-                className="px-4 py-2 rounded-lg border bg-gray-100 dark:bg-gray-800 dark:text-gray-100 hover:bg-gray-200 transition"
+                className="px-4 py-2 rounded-lg border bg-gray-100 hover:bg-gray-200 transition"
               >
                 Print / Save PDF
               </button>
 
               <button
                 onClick={nextImage}
-                className="px-4 py-2 rounded-lg border bg-gray-100 dark:bg-gray-800 dark:text-gray-100 hover:bg-gray-200 transition"
+                className="px-4 py-2 rounded-lg border bg-gray-100 hover:bg-gray-200 transition"
               >
                 Next ▶
               </button>

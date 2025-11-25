@@ -14,12 +14,11 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-
-  // 🔧 If maintenance mode is on — show maintenance screen everywhere
+  // Maintenance screen
   if (MAINTENANCE_MODE) {
     return (
       <html lang="en">
-        <body className="min-h-screen flex items-center justify-center bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+        <body className="min-h-screen flex items-center justify-center bg-white text-gray-900">
           <div className="text-center p-10">
             <h1 className="text-4xl font-bold mb-4">We'll be back soon!</h1>
             <p className="text-lg">
@@ -31,9 +30,9 @@ export default function RootLayout({
     );
   }
 
-  // 🔥 Normal site view
+  // Normal site view (LIGHT MODE ONLY)
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       {/* Google Ads Script */}
       <script
         async
@@ -41,7 +40,7 @@ export default function RootLayout({
         crossOrigin="anonymous"
       ></script>
 
-      <body className="min-h-screen flex flex-col bg-white dark:bg-gray-900">
+      <body className="min-h-screen flex flex-col bg-white text-gray-900">
         <NavBar />
 
         <main className="flex-grow pt-20 px-4 max-w-6xl mx-auto">
