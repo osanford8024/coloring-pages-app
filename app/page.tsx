@@ -19,8 +19,6 @@ export default function HomePage() {
           Explore our gallery or create your own instant coloring page.
         </p>
 
-        import AdUnit from "./components/AdUnit";
-
         // Insert this where you want the ad:
         <AdUnit slot="2296616571" />
 
