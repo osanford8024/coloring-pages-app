@@ -47,29 +47,48 @@ export default function GeneratePage() {
 
   function printImage() {
     if (!imageUrl) return;
-    const win = window.open("");
+
+    const win = window.open("", "_blank");
     if (!win) return;
+
     win.document.write(`
       <html>
         <head>
           <title>Print Coloring Page</title>
           <style>
-            body { margin: 0; display: flex; justify-content: center; }
-            img { max-width: 100%; max-height: 100vh; }
+            @page { margin: 0; size: auto; }
+            body {
+              margin: 0;
+              padding: 0;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 100vh;
+            }
+            img {
+              max-height: 95vh;
+              width: auto;
+              object-fit: contain;
+            }
           </style>
         </head>
         <body>
           <img src="${imageUrl}" />
-          <script>window.onload = () => window.print();</script>
+          <script>
+            window.onload = () => {
+              window.print();
+              window.onafterprint = () => window.close();
+            };
+          </script>
         </body>
       </html>
     `);
+
+    win.document.close();
   }
 
   return (
     <main className="max-w-3xl mx-auto px-4 pt-28 pb-16">
-
-      {/* Title */}
       <div className="text-center mb-8">
         <h1 className="text-4xl font-bold">Generate a Coloring Page</h1>
         <p className="text-gray-600 mt-2">
@@ -77,17 +96,14 @@ export default function GeneratePage() {
         </p>
       </div>
 
-      {/* AD — Top of Page */}
       <div className="my-6 flex justify-center">
         <AdUnit slot="9021258288" />
       </div>
 
-      {/* Form */}
       <form
         onSubmit={generateImage}
         className="bg-white rounded-2xl shadow-md p-6 space-y-4"
       >
-        {/* PROMPT TEXTAREA */}
         <div className="space-y-2">
           <label className="text-sm font-semibold">Prompt</label>
           <textarea
@@ -100,7 +116,6 @@ export default function GeneratePage() {
           />
         </div>
 
-        {/* AD — Under Textarea */}
         <div className="my-4 flex justify-center">
           <AdUnit slot="5278180744" />
         </div>
@@ -120,14 +135,12 @@ export default function GeneratePage() {
         )}
       </form>
 
-      {/* LOADER */}
       {loading && (
         <div className="mt-10 bg-white rounded-2xl shadow-md p-6">
           <SketchLoader />
         </div>
       )}
 
-      {/* RESULT */}
       {!loading && imageUrl && (
         <div className="mt-10 bg-white rounded-2xl shadow-md p-6">
           <img
@@ -136,7 +149,6 @@ export default function GeneratePage() {
             className="w-full rounded-lg border"
           />
 
-          {/* AD — Below Image */}
           <div className="my-6 flex justify-center">
             <AdUnit slot="9899225683" />
           </div>
@@ -159,7 +171,6 @@ export default function GeneratePage() {
         </div>
       )}
 
-      {/* AD — Footer */}
       <div className="my-10 flex justify-center">
         <AdUnit slot="2652017409" />
       </div>
