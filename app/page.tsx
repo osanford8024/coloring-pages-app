@@ -1,3 +1,5 @@
+import AdUnit from "./components/AdUnit";
+
 export const metadata = {
   title: "PaziPagesAI – AI Coloring Page Generator",
   description: "Create fun, unique coloring pages instantly using AI.",
@@ -17,12 +19,18 @@ export default function HomePage() {
           Explore our gallery or create your own instant coloring page.
         </p>
 
+        import AdUnit from "./components/AdUnit";
+
+        // Insert this where you want the ad:
+        <AdUnit slot="2296616571" />
+
+
         <div className="mt-8 flex justify-center gap-4">
           <a
             href="/generate"
             className="px-6 py-3 bg-black text-white rounded-lg text-lg font-medium hover:bg-gray-800"
           >
-            Generate a Coloring Page
+            Get a Coloring Page
           </a>
 
           <a
