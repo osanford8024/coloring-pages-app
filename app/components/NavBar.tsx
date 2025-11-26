@@ -22,6 +22,9 @@ export default function NavBar() {
           <Link href="/" className="hover:text-blue-600">Home</Link>
           <Link href="/generate" className="hover:text-blue-600">Generate</Link>
           <Link href="/gallery" className="hover:text-blue-600">Gallery</Link>
+          <Link href="/about" className="hover:text-blue-600">About</Link>
+          <Link href="/contact" className="hover:text-blue-600">Contact</Link>
+
         </div>
 
         {/* MOBILE HAMBURGER */}
@@ -59,6 +62,21 @@ export default function NavBar() {
           >
             Gallery
           </Link>
+          <Link
+            href="/about"
+            onClick={() => setMenuOpen(false)}
+            className="block hover:text-blue-600"
+          >
+            About
+          </Link>
+          <Link
+            href="/contact"
+            onClick={() => setMenuOpen(false)}
+            className="block hover:text-blue-600"
+          >
+            Contact
+          </Link>
+
         </div>
       )}
     </nav>

@@ -125,7 +125,6 @@ export default function GalleryPage() {
     link.click();
   }
 
-  // UPDATED PRINT — FIXES 2-PAGE ISSUE
   function printCurrent() {
     if (!currentImage) return;
 
@@ -170,29 +169,44 @@ export default function GalleryPage() {
 
   return (
     <div className="px-4 md:px-6 lg:px-10 py-6">
-      <h1 className="text-3xl font-bold mb-6">Gallery</h1>
+      <h1 className="text-3xl font-bold mb-4">Gallery</h1>
 
+      {/* INTRO CONTENT (AdSense Optimization) */}
+      <p className="text-gray-600 mb-6 max-w-2xl">
+        Explore thousands of AI-generated, kid-friendly coloring pages created by the
+        PaziPagesAI community. Browse by category or scroll endlessly to discover new
+        creative designs—perfect for printing, classrooms, and fun family activities.
+      </p>
+
+      {/* CATEGORY FILTER BUTTONS — BRAND BLUE */}
       <div className="flex flex-wrap gap-3 mb-6">
+
+        {/* ALL BUTTON */}
         <button
           onClick={() => selectCategory(null)}
-          className={`px-4 py-2 rounded-full border text-sm font-medium ${
-            activeCategory === null
-              ? "bg-black text-white border-black"
-              : "bg-gray-100 hover:bg-gray-200"
-          }`}
+          className={`px-4 py-2 rounded-full border text-sm font-medium transition
+            ${
+              activeCategory === null
+                ? "bg-[#2563eb] text-white border-[#2563eb]"
+                : "bg-white border-gray-300 text-gray-700 hover:bg-blue-50"
+            }
+          `}
         >
           All
         </button>
 
+        {/* CATEGORY LOOP */}
         {categories.map((cat) => (
           <button
             key={cat}
             onClick={() => selectCategory(cat)}
-            className={`px-4 py-2 rounded-full border text-sm font-medium ${
-              activeCategory === cat
-                ? "bg-black text-white border-black"
-                : "bg-gray-100 hover:bg-gray-200"
-            }`}
+            className={`px-4 py-2 rounded-full border text-sm font-medium transition
+              ${
+                activeCategory === cat
+                  ? "bg-[#2563eb] text-white border-[#2563eb]"
+                  : "bg-white border-gray-300 text-gray-700 hover:bg-blue-50"
+              }
+            `}
           >
             {cat}
           </button>
@@ -207,6 +221,7 @@ export default function GalleryPage() {
         <p className="text-center text-gray-500">No images found.</p>
       )}
 
+      {/* GALLERY GRID */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
         {images.map((img, idx) => (
           <div key={img.id} className="contents">
@@ -234,6 +249,7 @@ export default function GalleryPage() {
         <p className="text-center text-gray-500 mt-6">Loading...</p>
       )}
 
+      {/* MODAL */}
       {isModalOpen && currentImage && (
         <div
           className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-3"
@@ -262,31 +278,33 @@ export default function GalleryPage() {
               {currentImage.prompt}
             </p>
 
+            {/* MODAL ACTION BUTTONS — BRAND COLORS */}
             <div className="mt-4 flex flex-wrap justify-center gap-2">
+
               <button
                 onClick={prevImage}
-                className="px-4 py-2 rounded-lg border bg-gray-100 hover:bg-gray-200"
+                className="px-4 py-2 rounded-lg bg-blue-100 text-[#2563eb] hover:bg-blue-200 transition"
               >
                 ◀ Prev
               </button>
 
               <button
                 onClick={downloadCurrent}
-                className="px-4 py-2 rounded-lg border bg-black text-white hover:opacity-90"
+                className="px-4 py-2 rounded-lg bg-[#16a34a] text-white hover:bg-[#12863e] transition"
               >
                 Download PNG
               </button>
 
               <button
                 onClick={printCurrent}
-                className="px-4 py-2 rounded-lg border bg-gray-100 hover:bg-gray-200"
+                className="px-4 py-2 rounded-lg bg-white border border-[#2563eb] text-[#2563eb] hover:bg-blue-50 transition"
               >
                 Print / PDF
               </button>
 
               <button
                 onClick={nextImage}
-                className="px-4 py-2 rounded-lg border bg-gray-100 hover:bg-gray-200"
+                className="px-4 py-2 rounded-lg bg-blue-100 text-[#2563eb] hover:bg-blue-200 transition"
               >
                 Next ▶
               </button>

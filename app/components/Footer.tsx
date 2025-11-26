@@ -10,13 +10,25 @@ export default function Footer() {
         <span className="text-gray-400">•</span>
 
         <a href="/privacy" className="hover:text-black transition-colors">
-          Privacy
+          Privacy Policy
         </a>
 
         <span className="text-gray-400">•</span>
 
         <a href="/terms" className="hover:text-black transition-colors">
-          Terms
+          Terms of Service
+        </a>
+
+        <span className="text-gray-400">•</span>
+
+        <a href="/cookies" className="hover:text-black transition-colors">
+          Cookie Policy
+        </a>
+
+        <span className="text-gray-400">•</span>
+
+        <a href="/disclaimer" className="hover:text-black transition-colors">
+          Content Disclaimer
         </a>
 
       </div>
