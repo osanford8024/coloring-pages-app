@@ -28,7 +28,7 @@ export default function BlogHomePage() {
       title: "How to Write Great Prompts for AI Coloring Pages (Beginner Guide)",
       description:
         "A simple guide to writing effective prompts for clean, printable AI-generated coloring pages.",
-      href: "/blog/ai-coloring-prompts-guide",
+      href: "/blog/ai-coloring-guide",
       thumbnail: "/blog/thumbnails/prompts.png",
       date: "Updated 2025",
     },
