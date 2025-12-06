@@ -3,6 +3,7 @@
 import { useState } from "react";
 import AdUnit from "../components/AdUnit";
 import SketchLoader from "../components/SketchLoader";
+import DownloadPayButton from "../components/DownloadPayButton";
 
 export default function GeneratePage() {
   const [prompt, setPrompt] = useState("");
@@ -37,56 +38,6 @@ export default function GeneratePage() {
     }
   }
 
-  function downloadImage() {
-    if (!imageUrl) return;
-    const link = document.createElement("a");
-    link.href = imageUrl;
-    link.download = "coloring-page.png";
-    link.click();
-  }
-
-  function printImage() {
-    if (!imageUrl) return;
-
-    const win = window.open("", "_blank");
-    if (!win) return;
-
-    win.document.write(`
-      <html>
-        <head>
-          <title>Print Coloring Page</title>
-          <style>
-            @page { margin: 0; size: auto; }
-            body {
-              margin: 0;
-              padding: 0;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              height: 100vh;
-            }
-            img {
-              max-height: 95vh;
-              width: auto;
-              object-fit: contain;
-            }
-          </style>
-        </head>
-        <body>
-          <img src="${imageUrl}" />
-          <script>
-            window.onload = () => {
-              window.print();
-              window.onafterprint = () => window.close();
-            };
-          </script>
-        </body>
-      </html>
-    `);
-
-    win.document.close();
-  }
-
   return (
     <main className="max-w-3xl mx-auto px-4 pt-28 pb-16">
       <div className="text-left mb-6">
@@ -102,7 +53,6 @@ export default function GeneratePage() {
         <p className="leading-relaxed">
           Creating a coloring page is simple — just describe the scene you want,
           and PaziPagesAI will turn it into a clean, printable black-and-white illustration.
-          For the best quality results, try to include:
         </p>
 
         <ul className="list-disc pl-6 space-y-1 mt-3">
@@ -143,7 +93,7 @@ export default function GeneratePage() {
           <AdUnit slot="5278180744" />
         </div>
 
-        {/* PRIMARY BUTTON — Brand Blue */}
+        {/* PRIMARY BUTTON */}
         <button
           type="submit"
           disabled={loading || !prompt.trim()}
@@ -179,24 +129,9 @@ export default function GeneratePage() {
             <AdUnit slot="9899225683" />
           </div>
 
-          {/* ACTION BUTTONS */}
-          <div className="mt-4 flex flex-col sm:flex-row gap-2 justify-center">
-
-            {/* DOWNLOAD — Brand Green */}
-            <button
-              onClick={downloadImage}
-              className="px-4 py-2 bg-[#16a34a] text-white rounded-lg hover:bg-[#12863e] transition"
-            >
-              Download PNG
-            </button>
-
-            {/* PRINT — Brand Blue Outline */}
-            <button
-              onClick={printImage}
-              className="px-4 py-2 bg-white border border-[#2563eb] text-[#2563eb] rounded-lg hover:bg-blue-50 transition"
-            >
-              Print / PDF
-            </button>
+          {/* PAID DOWNLOAD BUTTON */}
+          <div className="mt-4 flex justify-center">
+            <DownloadPayButton imageUrl={imageUrl} />
           </div>
         </div>
       )}
