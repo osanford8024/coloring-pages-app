@@ -11,10 +11,6 @@ export const supabase = createClient(
       persistSession: true,
       detectSessionInUrl: true,
       flowType: "pkce",
-      cookieOptions: {
-        sameSite: "strict",
-        secure: false, // off for localhost
-      },
     },
   }
 );
