@@ -1,10 +1,11 @@
 // app/download-complete/page.tsx
 "use client";
 
+import { Suspense } from "react";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
-export default function DownloadCompletePage() {
+function DownloadCompleteContent() {
   const searchParams = useSearchParams();
   const sessionId = searchParams.get("session_id");
 
@@ -78,5 +79,19 @@ export default function DownloadCompletePage() {
         </div>
       )}
     </main>
+  );
+}
+
+export default function DownloadCompletePage() {
+  return (
+    <Suspense
+      fallback={
+        <main className="max-w-xl mx-auto px-4 pt-28 pb-16 text-center">
+          <p className="text-gray-700">Confirming your payment...</p>
+        </main>
+      }
+    >
+      <DownloadCompleteContent />
+    </Suspense>
   );
 }

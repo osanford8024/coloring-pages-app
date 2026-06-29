@@ -31,8 +31,8 @@ export default function GeneratePage() {
       } else {
         throw new Error("No image returned");
       }
-    } catch (err: any) {
-      setError(err.message || "Something went wrong");
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Something went wrong");
     } finally {
       setLoading(false);
     }

@@ -18,7 +18,7 @@ export async function GET(req: Request) {
     // CLEAN CATEGORY VALUE
     // ----------------------------
     // category = null OR ""  → show ALL
-    let category =
+    const category =
       rawCategory && rawCategory !== "null" && rawCategory.trim() !== ""
         ? rawCategory.trim()
         : null;

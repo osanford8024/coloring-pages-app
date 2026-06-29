@@ -2,7 +2,7 @@ import "./globals.css";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 
-const MAINTENANCE_MODE = true; // turn OFF when ready
+const MAINTENANCE_MODE = false; // turn OFF when ready
 
 export const metadata = {
   title: "PaziPagesAI",

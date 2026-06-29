@@ -2,18 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
 import { createClient } from "@supabase/supabase-js";
 
-// ---- Supabase admin client ----
-const supabaseAdmin = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!,
-  { auth: { persistSession: false } }
-);
-
-// ---- OpenAI client ----
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY!,
-});
-
 /**
  * Safe, border-free, margin-protected coloring page prompt (5% margins)
  */
@@ -44,6 +32,7 @@ async function autoCategorizeAndTag(prompt: string): Promise<{
   category: string;
   tags: string[];
 }> {
+  const openai = getOpenAIClient();
   const categories = [
     "Animals",
     "People",
@@ -87,7 +76,7 @@ Respond ONLY in JSON:
       : "Uncategorized";
 
     const tags = Array.isArray(parsed.tags)
-      ? parsed.tags.map((t: any) => String(t).slice(0, 30))
+      ? parsed.tags.map((tag: unknown) => String(tag).slice(0, 30))
       : [];
 
     return { category, tags };
@@ -99,8 +88,35 @@ Respond ONLY in JSON:
 /**
  * POST — Generate → Upload → Store
  */
+function getOpenAIClient() {
+  const apiKey = process.env.OPENAI_API_KEY;
+
+  if (!apiKey) {
+    throw new Error("Missing OPENAI_API_KEY");
+  }
+
+  return new OpenAI({ apiKey });
+}
+
+function getSupabaseAdminClient() {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+  if (!supabaseUrl || !serviceRoleKey) {
+    throw new Error(
+      "Missing NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY"
+    );
+  }
+
+  return createClient(supabaseUrl, serviceRoleKey, {
+    auth: { persistSession: false },
+  });
+}
+
 export async function POST(req: NextRequest) {
   try {
+    const openai = getOpenAIClient();
+    const supabaseAdmin = getSupabaseAdminClient();
     const body = await req.json();
     const prompt = body?.prompt?.trim();
 
@@ -182,7 +198,12 @@ export async function POST(req: NextRequest) {
   } catch (err) {
     console.error("Generate error:", err);
     return NextResponse.json(
-      { error: "Unexpected server error." },
+      {
+        error:
+          err instanceof Error && err.message.startsWith("Missing ")
+            ? err.message
+            : "Unexpected server error.",
+      },
       { status: 500 }
     );
   }

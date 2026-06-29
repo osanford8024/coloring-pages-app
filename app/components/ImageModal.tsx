@@ -17,10 +17,9 @@ export default function ImageModal({
   onNext: () => void;
   onPrev: () => void;
 }) {
-  if (!isOpen) return null;
-
-  // ESC to close
   useEffect(() => {
+    if (!isOpen) return;
+
     const handler = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
       if (e.key === "ArrowRight") onNext();
@@ -28,7 +27,9 @@ export default function ImageModal({
     };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  }, [onClose, onNext, onPrev]);
+  }, [isOpen, onClose, onNext, onPrev]);
+
+  if (!isOpen) return null;
 
   return (
     <div

@@ -6,10 +6,15 @@ interface AdUnitProps {
   slot: string;
 }
 
+declare global {
+  interface Window {
+    adsbygoogle?: unknown[];
+  }
+}
+
 export default function AdUnit({ slot }: AdUnitProps) {
   useEffect(() => {
     try {
-      // @ts-ignore
       (window.adsbygoogle = window.adsbygoogle || []).push({});
     } catch (e) {
       console.log("AdSense error:", e);
