@@ -26,11 +26,15 @@ export default function GeneratePage() {
 
       const data = await res.json();
 
-      if (data?.image?.image_url) {
-        setImageUrl(data.image.image_url);
-      } else {
-        throw new Error("No image returned");
+      if (!res.ok) {
+        throw new Error(data?.error || "Image generation failed");
       }
+
+      if (!data?.image?.image_url) {
+        throw new Error(data?.error || "No image URL returned");
+      }
+
+      setImageUrl(data.image.image_url);
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Something went wrong");
     } finally {

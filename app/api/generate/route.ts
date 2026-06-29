@@ -135,11 +135,18 @@ export async function POST(req: NextRequest) {
       model: "gpt-image-1",
       prompt: enhancedPrompt,
       size: "1024x1536",
+      output_format: "png",
       n: 1,
     });
 
     const b64 = imageResponse.data?.[0]?.b64_json;
     if (!b64) {
+      console.error("OpenAI image response did not include b64_json:", {
+        created: imageResponse.created,
+        outputCount: imageResponse.data?.length ?? 0,
+        usage: imageResponse.usage,
+      });
+
       return NextResponse.json(
         { error: "No image returned from OpenAI." },
         { status: 500 }
