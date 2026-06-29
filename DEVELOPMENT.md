@@ -31,10 +31,35 @@
 - `OPENAI_API_KEY`: OpenAI API key used for categorization and image generation.
 - `STRIPE_SECRET_KEY`: Stripe secret key used for checkout and paid download confirmation.
 
+## Fresh Supabase Setup
+
+Use this when replacing a paused or broken Supabase project.
+
+1. Create a new Supabase project.
+2. Open the new project's SQL editor.
+3. Run the full contents of `supabase/setup.sql`.
+4. Open Project Settings > API and copy these values into `.env.local`:
+
+   ```bash
+   NEXT_PUBLIC_SUPABASE_URL=...
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=...
+   SUPABASE_SERVICE_ROLE_KEY=...
+   ```
+
+5. Add the same values to the production host environment variables.
+6. Restart the local dev server after changing `.env.local`.
+
+The app expects:
+
+- A public storage bucket named `coloring-pages`.
+- A public table named `images`.
+- Public read access for gallery images.
+- Server-only writes through `SUPABASE_SERVICE_ROLE_KEY`.
+
 ## Current Restart Status
 
 - `npm run build` passes.
 - `npm run lint` passes with warnings only.
-- The source folder is not currently a git clone; it appears to be a downloaded GitHub source export.
-- `MAINTENANCE_MODE` is set to `true` in `app/layout.tsx`, so the app shows a maintenance screen until that is changed.
+- The local `main` branch tracks `origin/main`.
+- `MAINTENANCE_MODE` is currently set to `false` in `app/layout.tsx`.
 - The paid download flow now includes API routes for Stripe checkout and download verification.
