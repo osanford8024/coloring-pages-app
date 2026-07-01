@@ -1,6 +1,7 @@
 ﻿"use client";
 
-import { useEffect, useMemo, useState } from "react";
+import Image from "next/image";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 const LIMIT = 12;
 
@@ -34,43 +35,45 @@ export default function GalleryPage() {
     "Flowers",
   ];
 
-  async function loadImages(
-    reset = false,
-    categoryOverride: string | null = null
-  ) {
-    setIsLoading(true);
+  const loadImages = useCallback(
+    async (reset = false, categoryOverride: string | null = null) => {
+      setIsLoading(true);
 
-    const category = categoryOverride ?? activeCategory;
-    const offset = reset ? 0 : page * LIMIT;
-    let url = `/api/images?limit=${LIMIT}&offset=${offset}`;
-    if (category) url += `&category=${encodeURIComponent(category)}`;
+      const category = categoryOverride ?? activeCategory;
+      const offset = reset ? 0 : page * LIMIT;
+      let url = `/api/images?limit=${LIMIT}&offset=${offset}`;
+      if (category) url += `&category=${encodeURIComponent(category)}`;
 
-    try {
-      const res = await fetch(url);
-      const data = await res.json();
-      const newImages: ImageRow[] = data.images || [];
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+        const newImages: ImageRow[] = data.images || [];
 
-      if (reset) {
-        setImages(newImages);
-        setPage(1);
-      } else {
-        setImages((prev) => {
-          const merged = [...prev, ...newImages];
-          return Array.from(new Map(merged.map((img) => [img.id, img])).values());
-        });
-        setPage((prev) => prev + 1);
+        if (reset) {
+          setImages(newImages);
+          setPage(1);
+        } else {
+          setImages((prev) => {
+            const merged = [...prev, ...newImages];
+            return Array.from(new Map(merged.map((img) => [img.id, img])).values());
+          });
+          setPage((prev) => prev + 1);
+        }
+
+        setHasMore(newImages.length === LIMIT);
+      } catch (err) {
+        console.error("Failed to load images:", err);
+      } finally {
+        setIsLoading(false);
       }
-
-      setHasMore(newImages.length === LIMIT);
-    } catch (err) {
-      console.error("Failed to load images:", err);
-    }
-
-    setIsLoading(false);
-  }
+    },
+    [activeCategory, page]
+  );
 
   useEffect(() => {
     loadImages(true, null);
+    // The initial gallery load should run once; category changes call loadImages directly.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -86,7 +89,7 @@ export default function GalleryPage() {
 
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
-  }, [isLoading, hasMore, page, activeCategory]);
+  }, [isLoading, hasMore, loadImages]);
 
   function selectCategory(category: string | null) {
     setActiveCategory(category);
@@ -166,12 +169,15 @@ export default function GalleryPage() {
           <div key={img.id} className="contents">
             <button
               onClick={() => openModal(idx)}
-              className="w-full border rounded-lg bg-white overflow-hidden shadow-sm hover:shadow-md transition"
+              className="relative w-full aspect-square border rounded-lg bg-white overflow-hidden shadow-sm hover:shadow-md transition"
             >
-              <img
+              <Image
                 src={img.image_url}
                 alt={img.prompt}
-                className="w-full object-contain aspect-square"
+                fill
+                sizes="(min-width: 1024px) 20vw, (min-width: 768px) 25vw, (min-width: 640px) 33vw, 50vw"
+                className="object-contain"
+                unoptimized
               />
             </button>
           </div>
@@ -193,16 +199,19 @@ export default function GalleryPage() {
           >
             <button
               onClick={closeModal}
-              className="absolute top-2 right-2 bg-gray-200 text-gray-700 rounded-full px-3 py-1 hover:bg-gray-300"
+              className="absolute top-2 right-2 bg-gray-200 text-gray-700 rounded-full px-3 py-1 hover:bg-gray-300 z-10"
             >
               Close
             </button>
 
-            <div className="flex justify-center">
-              <img
+            <div className="relative mx-auto h-[70vh] w-full">
+              <Image
                 src={currentImage.image_url}
                 alt={currentImage.prompt}
-                className="max-h-[70vh] w-auto rounded-md"
+                fill
+                sizes="90vw"
+                className="object-contain rounded-md"
+                unoptimized
               />
             </div>
 
@@ -238,3 +247,5 @@ export default function GalleryPage() {
     </div>
   );
 }
+
+

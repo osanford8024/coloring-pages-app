@@ -1,5 +1,6 @@
-"use client";
+﻿"use client";
 
+import Image from "next/image";
 import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import SketchLoader from "../../components/SketchLoader";
@@ -140,25 +141,51 @@ function CompleteContent() {
 
         {!isLoading && error && (
           <div className="space-y-4 text-center">
-            <p className="text-red-600 bg-red-50 rounded-lg p-3 text-sm">
-              {error}
+            <div className="text-red-600 bg-red-50 rounded-lg p-4 text-sm space-y-2">
+              <p>{error}</p>
+              {sessionId && (
+                <p className="text-gray-700 break-all">
+                  Reference: <span className="font-mono">{sessionId}</span>
+                </p>
+              )}
+            </div>
+
+            <p className="text-sm text-gray-600">
+              If your payment was completed, contact support with the reference
+              above so we can review the generation.
             </p>
-            <a
-              href="/generate"
-              className="inline-block px-4 py-2 rounded-lg bg-[#2563eb] text-white hover:bg-[#1e4fc2] transition"
-            >
-              Back to Generator
-            </a>
+
+            <div className="flex flex-col sm:flex-row justify-center gap-3">
+              <a
+                href={`mailto:support@pazipagesai.com?subject=Paid%20generation%20support&body=Session%20reference:%20${encodeURIComponent(
+                  sessionId || ""
+                )}`}
+                className="inline-block px-4 py-2 rounded-lg border border-[#2563eb] text-[#2563eb] hover:bg-blue-50 transition"
+              >
+                Contact Support
+              </a>
+              <a
+                href="/generate"
+                className="inline-block px-4 py-2 rounded-lg bg-[#2563eb] text-white hover:bg-[#1e4fc2] transition"
+              >
+                Back to Generator
+              </a>
+            </div>
           </div>
         )}
 
         {!isLoading && imageUrl && (
           <div className="space-y-5">
-            <img
-              src={imageUrl}
-              alt={job?.prompt || "Generated coloring page"}
-              className="w-full rounded-lg border"
-            />
+            <div className="relative w-full aspect-[2/3] rounded-lg border overflow-hidden bg-white">
+              <Image
+                src={imageUrl}
+                alt={job?.prompt || "Generated coloring page"}
+                fill
+                sizes="(min-width: 768px) 768px, 100vw"
+                className="object-contain"
+                unoptimized
+              />
+            </div>
 
             {job?.prompt && (
               <p className="text-sm text-gray-600 text-center">{job.prompt}</p>
@@ -205,3 +232,5 @@ export default function GenerateCompletePage() {
     </Suspense>
   );
 }
+
+
