@@ -33,12 +33,6 @@ export default function RootLayout({
   // Normal site view (LIGHT MODE ONLY)
   return (
     <html lang="en">
-      {/* Google Ads Script */}
-      <script
-        async
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9912633892959880"
-        crossOrigin="anonymous"
-      ></script>
 
       <body className="min-h-screen flex flex-col bg-white text-gray-900">
         <NavBar />
@@ -52,3 +46,5 @@ export default function RootLayout({
     </html>
   );
 }
+
+

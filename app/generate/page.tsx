@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import AdUnit from "../components/AdUnit";
 
 const PRICE_CENTS = 89;
 const MAX_PROMPT_LENGTH = 500;
@@ -76,10 +75,6 @@ export default function GeneratePage() {
         </p>
       </section>
 
-      <div className="my-6 flex justify-center">
-        <AdUnit slot="9021258288" />
-      </div>
-
       <form
         onSubmit={startCheckout}
         className="bg-white rounded-2xl shadow-md p-6 space-y-4"
@@ -102,10 +97,6 @@ export default function GeneratePage() {
           />
         </div>
 
-        <div className="my-4 flex justify-center">
-          <AdUnit slot="5278180744" />
-        </div>
-
         <button
           type="submit"
           disabled={loading || !prompt.trim()}
@@ -120,10 +111,6 @@ export default function GeneratePage() {
           </p>
         )}
       </form>
-
-      <div className="my-10 flex justify-center">
-        <AdUnit slot="2652017409" />
-      </div>
     </main>
   );
 }

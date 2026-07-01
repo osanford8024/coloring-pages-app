@@ -9,6 +9,30 @@ export const metadata = {
 export default function BlogHomePage() {
   const posts = [
     {
+      title: "7 Classroom Coloring Activities Teachers Can Print Fast",
+      description:
+        "Simple printable coloring activities for morning work, early finishers, quiet time, seasonal lessons, and creative writing.",
+      href: "/blog/classroom-coloring-activities",
+      thumbnail: "/blog/thumbnails/classroom-activities.png",
+      date: "Updated 2026",
+    },
+    {
+      title: "Rainy Day Coloring Pages: Easy Ideas for Kids at Home",
+      description:
+        "Quick, creative coloring page ideas parents can use for cozy indoor activities when kids need something calm and fun.",
+      href: "/blog/rainy-day-coloring-pages",
+      thumbnail: "/blog/thumbnails/rainy-day.png",
+      date: "Updated 2026",
+    },
+    {
+      title: "How to Print Coloring Pages That Look Clean and Professional",
+      description:
+        "A practical guide to paper, printer settings, page scaling, and prompt choices for clean printable coloring pages.",
+      href: "/blog/printable-coloring-page-tips",
+      thumbnail: "/blog/thumbnails/printing-tips.png",
+      date: "Updated 2026",
+    },
+    {
       title: "20 Fun Coloring Page Ideas for Kids (Printable List)",
       description:
         "A collection of creative, kid-friendly coloring ideas to spark imagination and help children explore new themes.",
@@ -17,7 +41,7 @@ export default function BlogHomePage() {
       date: "Updated 2025",
     },
     {
-      title: "Top 10 Benefits of Coloring for Children’s Development",
+      title: "Top 10 Benefits of Coloring for Children's Development",
       description:
         "Learn how coloring helps kids build focus, creativity, fine motor skills, and emotional expression.",
       href: "/blog/benefits-of-coloring",
@@ -36,7 +60,6 @@ export default function BlogHomePage() {
 
   return (
     <main className="max-w-5xl mx-auto px-4 py-16">
-      {/* HEADER */}
       <header className="mb-12 max-w-2xl">
         <h1 className="text-4xl font-bold mb-4">PaziPagesAI Blog</h1>
         <p className="text-gray-700 leading-relaxed">
@@ -46,7 +69,6 @@ export default function BlogHomePage() {
         </p>
       </header>
 
-      {/* BLOG GRID */}
       <section className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
         {posts.map((post) => (
           <a
@@ -54,7 +76,6 @@ export default function BlogHomePage() {
             href={post.href}
             className="group bg-white border rounded-xl p-4 shadow-sm hover:shadow-md transition flex flex-col"
           >
-            {/* Thumbnail */}
             <div className="relative w-full h-40 mb-4">
               <Image
                 src={post.thumbnail}
@@ -76,11 +97,8 @@ export default function BlogHomePage() {
           </a>
         ))}
       </section>
-
-      {/* FOOTER MESSAGE */}
-      <div className="text-center text-gray-500 text-sm mt-16">
-        More articles coming soon.
-      </div>
     </main>
   );
 }
+
+

@@ -1,5 +1,3 @@
-import AdUnit from "./components/AdUnit";
-
 export const metadata = {
   title: "PaziPagesAI – AI Coloring Page Generator",
   description:
@@ -19,8 +17,6 @@ export default function HomePage() {
           Generate fun, high-quality, kid-friendly coloring pages instantly.
           Explore the gallery or create your own printable page in seconds.
         </p>
-
-        <AdUnit slot="2296616571" />
 
         <div className="mt-8 flex justify-center gap-4 flex-wrap">
 
@@ -116,11 +112,6 @@ export default function HomePage() {
           it fast and accessible.
         </p>
       </section>
-
-      {/* FOOTER AD */}
-      <div className="my-10 flex justify-center">
-        <AdUnit slot="2652017409" />
-      </div>
     </div>
   );
 }

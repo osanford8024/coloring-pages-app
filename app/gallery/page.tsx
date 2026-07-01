@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import AdUnit from "../components/AdUnit";
 
 const LIMIT = 12;
 
@@ -171,7 +170,7 @@ export default function GalleryPage() {
     <div className="px-4 md:px-6 lg:px-10 py-6">
       <h1 className="text-3xl font-bold mb-4">Gallery</h1>
 
-      {/* INTRO CONTENT (AdSense Optimization) */}
+      {/* INTRO CONTENT */}
       <p className="text-gray-600 mb-6 max-w-2xl">
         Explore thousands of AI-generated, kid-friendly coloring pages created by the
         PaziPagesAI community. Browse by category or scroll endlessly to discover new
@@ -213,10 +212,6 @@ export default function GalleryPage() {
         ))}
       </div>
 
-      <div className="my-6 flex justify-center">
-        <AdUnit slot="1410253778" />
-      </div>
-
       {images.length === 0 && !isLoading && (
         <p className="text-center text-gray-500">No images found.</p>
       )}
@@ -235,12 +230,6 @@ export default function GalleryPage() {
                 className="w-full object-contain aspect-square"
               />
             </button>
-
-            {idx === 11 && (
-              <div className="col-span-full my-8 flex justify-center">
-                <AdUnit slot="3533127881" />
-              </div>
-            )}
           </div>
         ))}
       </div>
@@ -312,10 +301,6 @@ export default function GalleryPage() {
           </div>
         </div>
       )}
-
-      <div className="my-10 flex justify-center">
-        <AdUnit slot="9631632376" />
-      </div>
     </div>
   );
 }

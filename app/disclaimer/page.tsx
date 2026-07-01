@@ -1,7 +1,7 @@
 export const metadata = {
   title: "Content Disclaimer | PaziPagesAI",
   description:
-    "Important information about AI-generated images, content safety, accuracy, copyright, and user expectations on PaziPagesAI.",
+    "Important information about AI-generated images, content safety, accuracy, copyright, payments, and user expectations on PaziPagesAI.",
 };
 
 export default function DisclaimerPage() {
@@ -10,22 +10,33 @@ export default function DisclaimerPage() {
       <h1 className="text-4xl font-bold mb-6">Content Disclaimer</h1>
 
       <p className="text-gray-700 leading-relaxed mb-6">
-        The information, images, and tools provided on{" "}
-        <strong>PaziPagesAI</strong> are intended for creative, educational,
-        and recreational use. By using this website, you acknowledge and agree
-        to the terms outlined in this Content Disclaimer.
+        The information, images, and tools provided on <strong>PaziPagesAI</strong>
+        are intended for creative, educational, and recreational use. By using
+        this website, you acknowledge and agree to the terms outlined in this
+        Content Disclaimer.
       </p>
 
       <h2 className="text-2xl font-semibold mt-10 mb-4">
         AI-Generated Content
       </h2>
       <p className="text-gray-700 leading-relaxed mb-6">
-        All illustrations generated on this website are created using
-        artificial intelligence (AI). While we strive to produce clean,
-        safe-for-kids coloring pages, AI-generated content may sometimes
-        include minor imperfections, inconsistencies, or inaccuracies. We
-        review and filter results whenever possible, but we cannot guarantee
-        that all outputs will be error-free.
+        All illustrations generated on this website are created using artificial
+        intelligence. While we strive to produce clean, safe-for-kids coloring
+        pages, AI-generated content may sometimes include imperfections,
+        inconsistencies, or inaccuracies. We review and filter results whenever
+        possible, but we cannot guarantee that all outputs will be error-free.
+      </p>
+
+      <h2 className="text-2xl font-semibold mt-10 mb-4">
+        Paid Generation and Service Availability
+      </h2>
+      <p className="text-gray-700 leading-relaxed mb-6">
+        Custom coloring pages are generated after checkout is completed through
+        Stripe. Generation depends on third-party services including Stripe,
+        OpenAI, and Supabase. Payment confirmation does not guarantee a perfect
+        result or uninterrupted service. If a paid generation fails because of a
+        technical issue, contact support with your checkout/session information
+        so we can review it.
       </p>
 
       <h2 className="text-2xl font-semibold mt-10 mb-4">
@@ -33,54 +44,51 @@ export default function DisclaimerPage() {
       </h2>
       <p className="text-gray-700 leading-relaxed mb-6">
         PaziPagesAI does not intentionally create or promote content based on
-        copyrighted, trademarked, or brand-owned characters (including but not
-        limited to Disney, Marvel, Pixar, Nintendo, and other franchises).
-        Users are responsible for ensuring their prompts do not request
-        protected characters or intellectual property. Any resemblance to
-        copyrighted characters is purely coincidental and unintentional.
+        copyrighted, trademarked, or brand-owned characters. Users are
+        responsible for ensuring their prompts do not request protected
+        characters or intellectual property. Any resemblance to copyrighted
+        characters is purely coincidental and unintentional.
       </p>
 
       <h2 className="text-2xl font-semibold mt-10 mb-4">
         Safety and Kid-Friendly Guidelines
       </h2>
       <p className="text-gray-700 leading-relaxed mb-6">
-        We aim to maintain a safe and family-friendly environment. Our
-        generation guidelines help prevent harmful, adult, violent, or
-        inappropriate content. However, since outputs are generated from user
-        prompts, we cannot guarantee full prevention of undesired content in
-        every case. If you encounter an image that seems inappropriate or not
-        suitable for children, please contact us immediately so we can review
-        and remove it.
+        We aim to maintain a safe and family-friendly environment. Our generation
+        guidelines help prevent harmful, adult, violent, or inappropriate
+        content. However, since outputs are generated from user prompts, we
+        cannot guarantee full prevention of undesired content in every case. If
+        you encounter an image that seems inappropriate or not suitable for
+        children, please contact us so we can review it.
       </p>
 
       <h2 className="text-2xl font-semibold mt-10 mb-4">
         Accuracy of Information
       </h2>
       <p className="text-gray-700 leading-relaxed mb-6">
-        While we work hard to ensure that all information and tools on
-        PaziPagesAI are accurate and up-to-date, we cannot guarantee
-        completeness, reliability, or suitability for any specific purpose.
-        All use of this website is at your own discretion and risk.
+        While we work hard to ensure that information and tools on PaziPagesAI
+        are accurate and up to date, we cannot guarantee completeness,
+        reliability, or suitability for any specific purpose. All use of this
+        website is at your own discretion and risk.
       </p>
 
       <h2 className="text-2xl font-semibold mt-10 mb-4">
         User Responsibility
       </h2>
       <p className="text-gray-700 leading-relaxed mb-6">
-        You are responsible for the prompts you provide, how you use the
-        generated images, and ensuring compliance with any applicable laws or
-        intellectual property rules. Generated images are provided for
-        personal, educational, or non-commercial use unless otherwise
-        specified.
+        You are responsible for the prompts you provide, how you use generated
+        images, and ensuring compliance with applicable laws and intellectual
+        property rules. Generated images are provided for personal, educational,
+        or non-commercial use unless otherwise specified.
       </p>
 
       <h2 className="text-2xl font-semibold mt-10 mb-4">
         Limitation of Liability
       </h2>
       <p className="text-gray-700 leading-relaxed mb-6">
-        PaziPagesAI is provided “as-is” without warranties of any kind. We are
-        not liable for any damages, losses, or issues arising from the use or
-        inability to use the site, including technical errors, AI
+        PaziPagesAI is provided as-is without warranties of any kind. We are not
+        liable for damages, losses, or issues arising from use or inability to
+        use the site, including technical errors, third-party service issues, AI
         inconsistencies, or user-generated content.
       </p>
 
@@ -89,16 +97,15 @@ export default function DisclaimerPage() {
       </h2>
       <p className="text-gray-700 leading-relaxed mb-6">
         We may update or modify this Content Disclaimer at any time. Updated
-        versions will be posted on this page with a revised “Last Updated”
-        date.
+        versions will be posted on this page with a revised Last Updated date.
       </p>
 
       <h2 className="text-2xl font-semibold mt-10 mb-4">
         Contact Information
       </h2>
       <p className="text-gray-700 leading-relaxed">
-        If you have questions or concerns about this Disclaimer, please reach
-        out at:
+        If you have questions or concerns about this Disclaimer, please reach out
+        at:
       </p>
 
       <p className="text-blue-600 font-medium text-lg break-all mt-2">
