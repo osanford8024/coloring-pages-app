@@ -1,6 +1,22 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 
+type ImageRow = {
+  id: string;
+  prompt: string;
+  image_url: string;
+  category?: string | null;
+  tags?: string[] | null;
+  created_at?: string;
+};
+
+function withProxiedImageUrl(image: ImageRow) {
+  return {
+    ...image,
+    image_url: `/api/images/${image.id}/file`,
+  };
+}
+
 export async function GET(req: Request) {
   try {
     const supabase = createClient(
@@ -14,35 +30,21 @@ export async function GET(req: Request) {
     const offset = Number(searchParams.get("offset") ?? 0);
     const rawCategory = searchParams.get("category");
 
-    // ----------------------------
-    // CLEAN CATEGORY VALUE
-    // ----------------------------
-    // category = null OR ""  → show ALL
     const category =
       rawCategory && rawCategory !== "null" && rawCategory.trim() !== ""
         ? rawCategory.trim()
         : null;
 
-    // ----------------------------
-    // BASE QUERY
-    // ----------------------------
     let query = supabase
       .from("images")
       .select("*")
       .order("created_at", { ascending: false })
       .range(offset, offset + limit - 1);
 
-    // ----------------------------
-    // APPLY CATEGORY FILTER ONLY IF VALID
-    // ----------------------------
     if (category) {
-      // Case-insensitive matching (supports Animals, animals, ANIMALS)
       query = query.ilike("category", category);
     }
 
-    // ----------------------------
-    // RUN QUERY
-    // ----------------------------
     const { data, error } = await query;
 
     if (error) {
@@ -50,7 +52,10 @@ export async function GET(req: Request) {
       return NextResponse.json({ images: [] }, { status: 200 });
     }
 
-    return NextResponse.json({ images: data ?? [] }, { status: 200 });
+    return NextResponse.json(
+      { images: (data ?? []).map((image) => withProxiedImageUrl(image)) },
+      { status: 200 }
+    );
   } catch (err) {
     console.error("API crash:", err);
     return NextResponse.json({ images: [] }, { status: 200 });

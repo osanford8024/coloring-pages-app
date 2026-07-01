@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useMemo, useState } from "react";
 
@@ -116,71 +116,17 @@ export default function GalleryPage() {
     setModalIndex((prev) => (prev - 1 + images.length) % images.length);
   }
 
-  function downloadCurrent() {
-    if (!currentImage) return;
-    const link = document.createElement("a");
-    link.href = currentImage.image_url;
-    link.download = `coloring-page-${currentImage.id}.png`;
-    link.click();
-  }
-
-  function printCurrent() {
-    if (!currentImage) return;
-
-    const win = window.open("", "_blank");
-    if (!win) return;
-
-    win.document.write(`
-      <html>
-        <head>
-          <title>Print Coloring Page</title>
-          <style>
-            @page { margin: 0; size: auto; }
-            body {
-              margin: 0;
-              padding: 0;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              height: 100vh;
-            }
-            img {
-              max-height: 95vh;
-              width: auto;
-              object-fit: contain;
-            }
-          </style>
-        </head>
-        <body>
-          <img src="${currentImage.image_url}" />
-          <script>
-            window.onload = () => {
-              window.print();
-              window.onafterprint = () => window.close();
-            };
-          </script>
-        </body>
-      </html>
-    `);
-
-    win.document.close();
-  }
-
   return (
     <div className="px-4 md:px-6 lg:px-10 py-6">
       <h1 className="text-3xl font-bold mb-4">Gallery</h1>
 
-      {/* INTRO CONTENT */}
       <p className="text-gray-600 mb-6 max-w-2xl">
-        Explore thousands of AI-generated, kid-friendly coloring pages created by the
-        PaziPagesAI community. Browse by category or scroll endlessly to discover new
-        creative designs—perfect for printing, classrooms, and fun family activities.
+        Browse examples of AI-generated, kid-friendly coloring pages created by
+        the PaziPagesAI community. Use the gallery for inspiration, then create
+        your own custom printable page when you are ready.
       </p>
 
-      {/* CATEGORY FILTER BUTTONS — BRAND BLUE */}
       <div className="flex flex-wrap gap-3 mb-6">
-
-        {/* ALL BUTTON */}
         <button
           onClick={() => selectCategory(null)}
           className={`px-4 py-2 rounded-full border text-sm font-medium transition
@@ -194,7 +140,6 @@ export default function GalleryPage() {
           All
         </button>
 
-        {/* CATEGORY LOOP */}
         {categories.map((cat) => (
           <button
             key={cat}
@@ -216,7 +161,6 @@ export default function GalleryPage() {
         <p className="text-center text-gray-500">No images found.</p>
       )}
 
-      {/* GALLERY GRID */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
         {images.map((img, idx) => (
           <div key={img.id} className="contents">
@@ -238,7 +182,6 @@ export default function GalleryPage() {
         <p className="text-center text-gray-500 mt-6">Loading...</p>
       )}
 
-      {/* MODAL */}
       {isModalOpen && currentImage && (
         <div
           className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-3"
@@ -252,7 +195,7 @@ export default function GalleryPage() {
               onClick={closeModal}
               className="absolute top-2 right-2 bg-gray-200 text-gray-700 rounded-full px-3 py-1 hover:bg-gray-300"
             >
-              Close ✕
+              Close
             </button>
 
             <div className="flex justify-center">
@@ -267,35 +210,26 @@ export default function GalleryPage() {
               {currentImage.prompt}
             </p>
 
-            {/* MODAL ACTION BUTTONS — BRAND COLORS */}
             <div className="mt-4 flex flex-wrap justify-center gap-2">
-
               <button
                 onClick={prevImage}
                 className="px-4 py-2 rounded-lg bg-blue-100 text-[#2563eb] hover:bg-blue-200 transition"
               >
-                ◀ Prev
+                Prev
               </button>
 
-              <button
-                onClick={downloadCurrent}
-                className="px-4 py-2 rounded-lg bg-[#16a34a] text-white hover:bg-[#12863e] transition"
+              <a
+                href="/generate"
+                className="px-4 py-2 rounded-lg bg-[#2563eb] text-white hover:bg-[#1e4fc2] transition"
               >
-                Download PNG
-              </button>
-
-              <button
-                onClick={printCurrent}
-                className="px-4 py-2 rounded-lg bg-white border border-[#2563eb] text-[#2563eb] hover:bg-blue-50 transition"
-              >
-                Print / PDF
-              </button>
+                Create Your Own
+              </a>
 
               <button
                 onClick={nextImage}
                 className="px-4 py-2 rounded-lg bg-blue-100 text-[#2563eb] hover:bg-blue-200 transition"
               >
-                Next ▶
+                Next
               </button>
             </div>
           </div>

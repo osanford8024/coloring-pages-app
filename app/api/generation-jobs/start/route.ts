@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+﻿import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import {
   generateAndStoreColoringPage,
@@ -19,6 +19,26 @@ function jsonError(err: unknown, fallback: string) {
   return err instanceof Error && err.message.startsWith("Missing ")
     ? err.message
     : fallback;
+}
+
+function proxiedImageUrl(imageId?: string | null) {
+  return imageId ? `/api/images/${imageId}/file` : null;
+}
+
+function withProxiedJobImage<T extends { image_id?: string | null; image_url?: string | null }>(
+  job: T
+) {
+  return {
+    ...job,
+    image_url: proxiedImageUrl(job.image_id) ?? job.image_url,
+  };
+}
+
+function withProxiedImage<T extends { id: string; image_url?: string | null }>(image: T) {
+  return {
+    ...image,
+    image_url: proxiedImageUrl(image.id) ?? image.image_url,
+  };
 }
 
 export async function POST(req: NextRequest) {
@@ -70,7 +90,7 @@ export async function POST(req: NextRequest) {
     }
 
     if (existingJob?.status === "complete" && existingJob.image_url) {
-      return NextResponse.json({ job: existingJob });
+      return NextResponse.json({ job: withProxiedJobImage(existingJob) });
     }
 
     const { data: job, error: upsertError } = await supabaseAdmin
@@ -119,7 +139,7 @@ export async function POST(req: NextRequest) {
         );
       }
 
-      return NextResponse.json({ job: completeJob, image });
+      return NextResponse.json({ job: withProxiedJobImage(completeJob), image: withProxiedImage(image) });
     } catch (generationError) {
       const message =
         generationError instanceof Error
@@ -147,4 +167,5 @@ export async function POST(req: NextRequest) {
     );
   }
 }
+
 
