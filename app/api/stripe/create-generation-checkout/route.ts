@@ -14,14 +14,23 @@ function getStripeClient() {
   return new Stripe(secretKey);
 }
 
-function getBaseUrl(req: NextRequest) {
-  const configuredUrl = process.env.NEXT_PUBLIC_SITE_URL;
+function isLocalUrl(url: string) {
+  return /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/i.test(url);
+}
 
-  if (configuredUrl) {
-    return configuredUrl.replace(/\/$/, "");
+function getBaseUrl(req: NextRequest) {
+  const requestOrigin = req.nextUrl.origin.replace(/\/$/, "");
+  const configuredUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
+
+  if (!configuredUrl) {
+    return requestOrigin;
   }
 
-  return req.nextUrl.origin;
+  if (isLocalUrl(configuredUrl) && !isLocalUrl(requestOrigin)) {
+    return requestOrigin;
+  }
+
+  return configuredUrl;
 }
 
 export async function POST(req: NextRequest) {
@@ -81,3 +90,4 @@ export async function POST(req: NextRequest) {
     );
   }
 }
+
