@@ -15,12 +15,6 @@ function getStripeClient() {
   return new Stripe(secretKey);
 }
 
-function jsonError(err: unknown, fallback: string) {
-  return err instanceof Error && err.message.startsWith("Missing ")
-    ? err.message
-    : fallback;
-}
-
 function proxiedImageUrl(imageId?: string | null) {
   return imageId ? `/api/images/${imageId}/file` : null;
 }
@@ -41,11 +35,30 @@ function withProxiedImage<T extends { id: string; image_url?: string | null }>(i
   };
 }
 
+function errorMessage(err: unknown) {
+  if (!(err instanceof Error)) {
+    return "Unable to process generation job.";
+  }
+
+  if (err.message.startsWith("Missing ")) {
+    return err.message;
+  }
+
+  if (err.message.includes("Invalid URL")) {
+    return "Invalid Supabase URL. Check NEXT_PUBLIC_SUPABASE_URL in production.";
+  }
+
+  if (err.name?.includes("Stripe") || err.message.includes("No such checkout.session")) {
+    return "Stripe could not verify this checkout session. Check that production STRIPE_SECRET_KEY is a live key from the same Stripe account that created the payment.";
+  }
+
+  return "Unable to process generation job.";
+}
+
 export async function POST(req: NextRequest) {
   let sessionId = "";
 
   try {
-    const supabaseAdmin = getSupabaseAdminClient();
     const body = await req.json();
     sessionId = typeof body?.sessionId === "string" ? body.sessionId.trim() : "";
 
@@ -75,6 +88,8 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    const supabaseAdmin = getSupabaseAdminClient();
+
     const { data: existingJob, error: existingError } = await supabaseAdmin
       .from("generation_jobs")
       .select("*")
@@ -84,7 +99,12 @@ export async function POST(req: NextRequest) {
     if (existingError) {
       console.error("Generation job lookup error:", existingError);
       return NextResponse.json(
-        { error: "Unable to load generation job." },
+        {
+          error:
+            existingError.code === "42P01"
+              ? "Missing generation_jobs table. Run the latest Supabase setup SQL in production."
+              : "Unable to load generation job.",
+        },
         { status: 500 }
       );
     }
@@ -110,7 +130,12 @@ export async function POST(req: NextRequest) {
     if (upsertError) {
       console.error("Generation job upsert error:", upsertError);
       return NextResponse.json(
-        { error: "Unable to start generation job." },
+        {
+          error:
+            upsertError.code === "42P01"
+              ? "Missing generation_jobs table. Run the latest Supabase setup SQL in production."
+              : "Unable to start generation job.",
+        },
         { status: 500 }
       );
     }
@@ -139,7 +164,10 @@ export async function POST(req: NextRequest) {
         );
       }
 
-      return NextResponse.json({ job: withProxiedJobImage(completeJob), image: withProxiedImage(image) });
+      return NextResponse.json({
+        job: withProxiedJobImage(completeJob),
+        image: withProxiedImage(image),
+      });
     } catch (generationError) {
       const message =
         generationError instanceof Error
@@ -161,11 +189,6 @@ export async function POST(req: NextRequest) {
   } catch (err) {
     console.error("Generation job error:", err);
 
-    return NextResponse.json(
-      { error: jsonError(err, "Unable to process generation job.") },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: errorMessage(err) }, { status: 500 });
   }
 }
-
-
