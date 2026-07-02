@@ -2,7 +2,7 @@
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 
-const MAINTENANCE_MODE = true; // turn OFF when ready
+const MAINTENANCE_MODE = false; // production open for testing
 
 export const metadata = {
   title: "PaziPagesAI",
@@ -46,6 +46,7 @@ export default function RootLayout({
     </html>
   );
 }
+
 
 
 
