@@ -224,18 +224,20 @@ function GenerateContent() {
 
   return (
     <main className="max-w-5xl mx-auto px-4 pt-28 pb-16">
-      <div className="text-left mb-6">
-        <h1 className="text-4xl font-bold">Generate Coloring Pages</h1>
-        <p className="text-gray-600 mt-2">
-          Buy a page pack once, then create printable coloring pages from your private studio link.
+      <section className="mb-8 rounded-lg border bg-white p-6 shadow-sm sm:p-8">
+        <p className="text-sm font-semibold uppercase tracking-wide text-[#2563eb]">Page packs</p>
+        <h1 className="mt-3 text-4xl font-bold text-gray-950">Generate Coloring Pages</h1>
+        <p className="mt-3 max-w-3xl text-lg leading-relaxed text-gray-600">
+          Buy a pack once, open your private studio link, and create printable
+          coloring pages without an account or password.
         </p>
-      </div>
+      </section>
 
       {!activeToken && (
         <section className="mb-10">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {PACKS.map((pack) => (
-              <article key={pack.id} className="bg-white rounded-lg shadow-md p-5 border border-gray-100 flex flex-col">
+              <article key={pack.id} className="bg-white rounded-lg shadow-sm p-5 border flex flex-col transition hover:border-[#2563eb]">
                 <div className="flex-1">
                   <h2 className="text-xl font-bold">{pack.title}</h2>
                   <p className="text-gray-600 mt-1">{pack.note}</p>
@@ -258,7 +260,7 @@ function GenerateContent() {
 
       {activeToken && (
         <section className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-6">
-          <form onSubmit={generateWithCredit} className="bg-white rounded-lg shadow-md p-6 space-y-4">
+          <form onSubmit={generateWithCredit} className="bg-white rounded-lg shadow-sm border p-6 space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
               <div>
                 <h2 className="text-2xl font-bold">Private Studio</h2>
@@ -294,7 +296,7 @@ function GenerateContent() {
             </button>
           </form>
 
-          <aside className="bg-white rounded-lg shadow-md p-6 space-y-3 h-fit">
+          <aside className="bg-white rounded-lg shadow-sm border p-6 space-y-3 h-fit">
             <h2 className="text-xl font-bold">Page Pack</h2>
             <p className="text-gray-600">
               {creditSession
@@ -316,7 +318,7 @@ function GenerateContent() {
       )}
 
       {!activeToken && (
-        <section className="mb-10 max-w-2xl mx-auto text-gray-700 space-y-4">
+        <section className="mb-10 max-w-2xl mx-auto text-gray-700 space-y-4 rounded-lg border bg-white p-6 shadow-sm">
           <div>
             <h2 className="text-2xl font-bold mb-3">How to Get the Best Results</h2>
             <p className="leading-relaxed">
@@ -335,7 +337,7 @@ function GenerateContent() {
       {error && <p className="text-red-500 text-sm bg-red-50 p-3 rounded-lg mt-6">{error}</p>}
 
       {imageUrl && (
-        <section className="bg-white rounded-lg shadow-md p-6 mt-6 space-y-5">
+        <section className="bg-white rounded-lg shadow-sm border p-6 mt-6 space-y-5">
           <div className="relative w-full max-w-3xl mx-auto aspect-[2/3] rounded-lg border overflow-hidden bg-white">
             <Image
               src={imageUrl}

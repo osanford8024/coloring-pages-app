@@ -1,168 +1,76 @@
-"use client";
+﻿export const metadata = {
+  title: "Terms of Service | PaziPagesAI",
+  description:
+    "Terms for using PaziPagesAI page packs, private studio links, AI-generated coloring pages, payments, and support.",
+};
 
-import React from "react";
+const sections = [
+  {
+    title: "Using the Service",
+    body: "PaziPagesAI provides AI-generated printable coloring pages for creative, educational, and recreational use. By using the site, you agree to these terms.",
+  },
+  {
+    title: "Page Packs and Credits",
+    body: "Page packs provide a set number of generation credits. One successful coloring page generation uses one credit. If a technical issue prevents generation, the credit should not be deducted.",
+  },
+  {
+    title: "Payments",
+    body: "Payments are processed by Stripe. Purchases are for digital services and are generally final unless required by law or reviewed for a technical failure.",
+  },
+  {
+    title: "Private Studio Links",
+    body: "Private studio links act as no-login access to remaining page credits. Keep your link safe. If lost, use the recovery page with the email used at checkout.",
+  },
+  {
+    title: "AI-Generated Output",
+    body: "AI output may contain mistakes, artifacts, unexpected details, or unsuitable results. Adults should review pages before providing them to children.",
+  },
+  {
+    title: "User Responsibilities",
+    body: "Do not request illegal, harmful, abusive, adult, violent, copyrighted, trademarked, or otherwise inappropriate content. Do not attempt to bypass checkout or misuse the service.",
+  },
+  {
+    title: "Third-Party Services",
+    body: "The service relies on providers such as Stripe, Supabase, OpenAI, and Resend. Their own terms and policies may also apply.",
+  },
+  {
+    title: "Availability and Liability",
+    body: "The service is provided as is. We do not guarantee uninterrupted availability or perfect output, and liability is limited to the fullest extent allowed by law.",
+  },
+];
 
 export default function TermsPage() {
   return (
-    <main className="max-w-4xl mx-auto px-6 py-12 text-gray-800">
-      <h1 className="text-4xl font-bold mb-6">Terms of Service</h1>
-      <p className="text-sm text-gray-500 mb-8">Last updated: July 2026</p>
+    <main className="mx-auto max-w-4xl px-4 py-16">
+      <section className="mb-8 rounded-lg border bg-white p-6 shadow-sm sm:p-8">
+        <p className="text-sm font-semibold uppercase tracking-wide text-[#2563eb]">Legal</p>
+        <h1 className="mt-3 text-4xl font-bold text-gray-950">Terms of Service</h1>
+        <p className="mt-3 max-w-3xl leading-relaxed text-gray-600">
+          These terms cover page packs, private studio links, payments, AI-generated
+          coloring pages, and acceptable use of PaziPagesAI.
+        </p>
+        <p className="mt-4 text-sm text-gray-500">Last updated: July 2026</p>
+      </section>
 
-      <div className="space-y-8 leading-relaxed">
-        <section>
-          <h2 className="text-2xl font-semibold mb-2">1. Acceptance of Terms</h2>
-          <p>
-            By using PaziPagesAI ("the Service", "we", "our"), you agree to
-            these Terms of Service. If you do not agree, please discontinue use
-            of the platform.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-2xl font-semibold mb-2">2. Description of Service</h2>
-          <p>
-            PaziPagesAI provides an AI-powered coloring page generator that lets
-            users create, save, download, and print AI-generated coloring pages.
-            Custom generation uses a checkout-first flow: a user submits a
-            prompt, completes payment through Stripe, and then the image is
-            generated after payment is verified.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-2xl font-semibold mb-2">3. User Responsibilities</h2>
-          <p>By using PaziPagesAI, you agree that you will not:</p>
-          <ul className="list-disc ml-6 mt-2 space-y-1">
-            <li>Use the Service for illegal, harmful, or abusive purposes</li>
-            <li>Request content that violates laws, copyrights, or trademarks</li>
-            <li>Attempt to interfere with or damage the Service or infrastructure</li>
-            <li>Misuse AI-generated images in ways prohibited by provider policies</li>
-            <li>Attempt to bypass checkout or access paid generation without payment</li>
-          </ul>
-        </section>
-
-        <section>
-          <h2 className="text-2xl font-semibold mb-2">4. AI-Generated Content</h2>
-          <h3 className="font-semibold mt-4 mb-1">4.1 Ownership and Use</h3>
-          <p>
-            Subject to applicable law and provider policies, you are responsible
-            for how you use, publish, or distribute images generated from your
-            prompts. You are also responsible for ensuring your prompts and uses
-            do not violate third-party rights.
-          </p>
-
-          <h3 className="font-semibold mt-4 mb-1">4.2 Output Quality</h3>
-          <p>
-            AI-generated content may contain mistakes, artifacts, unexpected
-            details, or unsuitable results. We work to guide and improve output
-            quality, but we do not guarantee that every result will meet your
-            expectations.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-2xl font-semibold mb-2">5. Storage and Data Handling</h2>
-          <p>
-            Images generated through the Service may be stored in Supabase
-            Storage and may be listed in the public gallery. Generation job
-            records may include a Stripe checkout session identifier, prompt,
-            status, image URL, and related metadata. We reserve the right to
-            delete stored files for moderation, maintenance, abuse prevention,
-            or storage limitations.
-          </p>
-          <p className="mt-3">
-            You are responsible for downloading and saving any content you wish
-            to preserve.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-2xl font-semibold mb-2">6. Payments and Monetization</h2>
-          <p>
-            PaziPagesAI may charge for custom coloring page generation and other digital services. By using paid features, you agree to checkout, payment processing, and related provider practices described in our Privacy Policy and applicable provider policies.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-2xl font-semibold mb-2">
-            7. Payment, Purchases, and Refunds
-          </h2>
-          <p>
-            Paid custom coloring page generation is processed by Stripe. Payment
-            must be completed before generation begins. All purchases are for
-            digital services and are generally final unless required by law.
-          </p>
-          <p className="mt-3">
-            If a paid generation fails because of a technical issue, contact
-            support with your checkout/session information so we can review the
-            transaction and help resolve the issue.
-          </p>
-          <p className="mt-2">
-            <a href="mailto:support@pazipagesai.com" className="text-blue-600 underline">
-              support@pazipagesai.com
-            </a>
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-2xl font-semibold mb-2">8. Third-Party Services</h2>
-          <p>
-            PaziPagesAI integrates with services such as OpenAI, Supabase, and Stripe. Your use of the platform may also be subject to
-            the terms and policies of these providers.
-          </p>
-          <p className="mt-3">
-            We are not responsible for outages, errors, payment declines, or
-            data handling by third-party vendors.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-2xl font-semibold mb-2">9. Disclaimer of Warranties</h2>
-          <p>
-            The Service is provided as is and without warranties of any kind,
-            whether express or implied. We do not guarantee that the Service
-            will be uninterrupted, error-free, or meet your expectations.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-2xl font-semibold mb-2">10. Limitation of Liability</h2>
-          <p>
-            PaziPagesAI shall not be liable for damages arising from your use of
-            the Service, including loss of data, lost profits, payment provider
-            issues, or misuse of generated images. Your sole remedy is to
-            discontinue use of the Service, except where prohibited by law.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-2xl font-semibold mb-2">11. Termination</h2>
-          <p>
-            We may suspend or terminate access to the Service at any time for
-            violations of these Terms or activities deemed harmful to the
-            platform or its users.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-2xl font-semibold mb-2">12. Changes to These Terms</h2>
-          <p>
-            We may update these Terms from time to time. Updates will be posted
-            on this page with the Last Updated date revised. By continuing to
-            use the Service, you accept the updated Terms.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-2xl font-semibold mb-2">13. Contact Us</h2>
-          <p>If you have questions regarding these Terms, contact us at:</p>
-          <p className="mt-2">
-            <a href="mailto:support@pazipagesai.com" className="text-blue-600 underline">
-              support@pazipagesai.com
-            </a>
-          </p>
-        </section>
+      <div className="space-y-4">
+        {sections.map((section) => (
+          <section key={section.title} className="rounded-lg border bg-white p-5 shadow-sm">
+            <h2 className="text-2xl font-bold text-gray-950">{section.title}</h2>
+            <p className="mt-2 leading-relaxed text-gray-600">{section.body}</p>
+          </section>
+        ))}
       </div>
+
+      <section className="mt-8 rounded-lg border border-blue-100 bg-blue-50 p-6">
+        <h2 className="text-2xl font-bold text-gray-950">Questions?</h2>
+        <p className="mt-2 text-gray-700">
+          Contact{" "}
+          <a href="mailto:support@pazipagesai.com" className="font-semibold text-[#2563eb] underline">
+            support@pazipagesai.com
+          </a>{" "}
+          with payment or service questions.
+        </p>
+      </section>
     </main>
   );
 }

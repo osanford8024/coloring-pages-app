@@ -1,98 +1,89 @@
+﻿import Link from "next/link";
+
 export const metadata = {
   title: "About PaziPagesAI",
   description:
-    "Learn about PaziPagesAI, the safe, kid-friendly AI coloring page generator designed for parents, teachers, and young artists.",
+    "Learn about PaziPagesAI, the no-login AI coloring page generator for parents, teachers, and young artists.",
 };
+
+const values = [
+  "Kid-friendly prompts and printable line-art output",
+  "No-login page packs with private studio links",
+  "Simple recovery by checkout email if a link is lost",
+  "A cleaner experience without ad-heavy distractions",
+];
 
 export default function AboutPage() {
   return (
-    <main className="max-w-3xl mx-auto px-4 py-16">
-      <h1 className="text-4xl font-bold mb-6">About PaziPagesAI</h1>
-
-      <p className="text-gray-700 leading-relaxed mb-6">
-        <strong>PaziPagesAI</strong> was created with one simple mission: to make
-        high-quality, kid-friendly coloring pages easier to create for families,
-        teachers, therapists, and young artists. Coloring helps children build
-        focus, confidence, imagination, and emotional expression, and we wanted
-        to make custom printable pages simple to create without drawing skills.
-      </p>
-
-      <p className="text-gray-700 leading-relaxed mb-6">
-        Using AI technology, PaziPagesAI transforms paid prompts into clean,
-        printable black-and-white coloring pages that fit standard 8.5 x 11 inch
-        paper. Whether it is a dinosaur riding a scooter, a kitten baking
-        cupcakes, or a custom idea from your child, the goal is to make
-        creativity fun, safe, and easy.
-      </p>
-
-      <h2 className="text-2xl font-semibold mt-10 mb-4">
-        Why PaziPagesAI Exists
-      </h2>
-      <p className="text-gray-700 leading-relaxed mb-6">
-        Many coloring sites rely heavily on ads, outdated clip art, or
-        low-resolution images that do not print well. We wanted to offer modern,
-        customizable line-art illustrations that are high resolution and easy to
-        print. Teachers need age-appropriate resources. Parents need quick
-        activities. Therapists use art for emotional regulation. PaziPagesAI is
-        built to help create those materials quickly.
-      </p>
-
-      <h2 className="text-2xl font-semibold mt-10 mb-4">
-        A Checkout-First Experience
-      </h2>
-      <p className="text-gray-700 leading-relaxed mb-6">
-        Custom generation uses a checkout-first flow. You enter a prompt,
-        complete secure payment through Stripe, and then the image is generated.
-        This helps keep the service sustainable while avoiding a full account or
-        login system. The Stripe checkout session acts as a temporary claim link
-        for your completed coloring page.
-      </p>
-
-      <h2 className="text-2xl font-semibold mt-10 mb-4">
-        A Safe and Kid-Friendly Experience
-      </h2>
-      <p className="text-gray-700 leading-relaxed mb-6">
-        We take child safety seriously. Prompts are guided by best practices to
-        avoid copyrighted characters, violent themes, unsafe objects, or content
-        not suitable for young audiences. No login is required to browse the
-        gallery, and payment information is handled by Stripe rather than stored
-        directly by PaziPagesAI.
-      </p>
-
-      <h2 className="text-2xl font-semibold mt-10 mb-4">Who We Are</h2>
-      <p className="text-gray-700 leading-relaxed mb-6">
-        PaziPagesAI is built by creators who care about education, technology,
-        and useful digital tools. What began as a personal project to generate
-        custom coloring sheets for our own families has grown into a resource
-        for parents, teachers, and kids. We continue to improve the platform to
-        provide a smoother, more creative, and more reliable experience.
-      </p>
-
-      <h2 className="text-2xl font-semibold mt-10 mb-4">
-        Our Commitment to Quality
-      </h2>
-      <p className="text-gray-700 leading-relaxed mb-6">
-        We are committed to maintaining a high-quality, ad-safe experience. All
-        illustrations are created for print-ready use, and the gallery is curated
-        to highlight useful results. Our priority is delivering content that
-        inspires creativity and provides real educational value.
-      </p>
-
-      <p className="text-gray-700 leading-relaxed mb-6">
-        If you have suggestions, requests, or feedback, we would love to hear
-        from you. Your input helps PaziPagesAI remain useful, fun, and
-        trustworthy for families everywhere.
-      </p>
-
-      <div className="mt-12 p-6 border rounded-xl bg-gray-50">
-        <h3 className="text-xl font-semibold mb-2">Contact Us</h3>
-        <p className="text-gray-700">
-          Have questions or suggestions? Reach out anytime at:
+    <main className="mx-auto max-w-5xl px-4 py-16">
+      <section className="mb-10 rounded-lg border bg-white p-6 shadow-sm sm:p-8">
+        <p className="text-sm font-semibold uppercase tracking-wide text-[#2563eb]">
+          Built for creative families and classrooms
         </p>
-        <p className="text-blue-600 font-medium mt-2">
-          support@pazipagesai.com
+        <h1 className="mt-3 text-4xl font-bold text-gray-950">About PaziPagesAI</h1>
+        <p className="mt-4 max-w-3xl text-lg leading-relaxed text-gray-600">
+          PaziPagesAI helps parents, teachers, and young creators turn simple
+          ideas into custom printable coloring pages. The goal is a calm,
+          useful tool that makes creative activities easier to prepare.
         </p>
-      </div>
+      </section>
+
+      <section className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_340px]">
+        <div className="space-y-6">
+          <article className="rounded-lg border bg-white p-6 shadow-sm">
+            <h2 className="text-2xl font-bold text-gray-950">Why It Exists</h2>
+            <p className="mt-3 leading-relaxed text-gray-600">
+              Many coloring sites are cluttered with ads, outdated clip art, or
+              images that do not print cleanly. PaziPagesAI focuses on custom,
+              black-and-white pages that are easy to print and simple for kids
+              to enjoy.
+            </p>
+          </article>
+
+          <article className="rounded-lg border bg-white p-6 shadow-sm">
+            <h2 className="text-2xl font-bold text-gray-950">How Access Works</h2>
+            <p className="mt-3 leading-relaxed text-gray-600">
+              Instead of asking families to create accounts, PaziPagesAI uses
+              page packs and private studio links. Buy a pack through Stripe,
+              open your private link, and spend one credit for each successful
+              coloring page.
+            </p>
+          </article>
+
+          <article className="rounded-lg border bg-white p-6 shadow-sm">
+            <h2 className="text-2xl font-bold text-gray-950">Our Safety Approach</h2>
+            <p className="mt-3 leading-relaxed text-gray-600">
+              The service is designed for family-friendly prompts and avoids
+              harmful, adult, violent, or copyrighted-character requests. AI can
+              still make mistakes, so adults should review generated pages before use.
+            </p>
+          </article>
+        </div>
+
+        <aside className="space-y-4">
+          <div className="rounded-lg border bg-white p-6 shadow-sm">
+            <h2 className="text-xl font-bold text-gray-950">What We Care About</h2>
+            <ul className="mt-4 space-y-3 text-sm text-gray-700">
+              {values.map((value) => (
+                <li key={value} className="rounded-lg bg-gray-50 p-3">{value}</li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="rounded-lg border border-blue-100 bg-blue-50 p-6">
+            <h2 className="text-xl font-bold text-gray-950">Questions or Feedback?</h2>
+            <p className="mt-2 text-sm leading-relaxed text-gray-700">
+              Your feedback helps shape a better, more useful coloring page tool.
+            </p>
+            <Link
+              href="/contact"
+              className="mt-5 inline-flex w-full justify-center rounded-lg bg-[#2563eb] px-5 py-3 font-semibold text-white transition hover:bg-[#1e4fc2]"
+            >
+              Contact Us
+            </Link>
+          </div>
+        </aside>
+      </section>
     </main>
   );
 }

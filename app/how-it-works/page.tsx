@@ -1,115 +1,101 @@
-export const metadata = {
+﻿export const metadata = {
   title: "How It Works | PaziPagesAI",
   description:
-    "Learn how PaziPagesAI turns paid prompts into clean, kid-friendly, printable coloring pages using safe AI technology.",
+    "Learn how PaziPagesAI page packs, private studio links, AI generation, downloads, and recovery emails work without an account.",
 };
+
+const steps = [
+  {
+    title: "Choose a page pack",
+    text: "Pick the pack that fits your home, classroom, or activity plans. Stripe handles checkout securely, and PaziPagesAI does not store your full card details.",
+  },
+  {
+    title: "Open your private studio",
+    text: "After payment, you receive a private studio link. That link holds your remaining page credits, so there is no account or password to manage.",
+  },
+  {
+    title: "Describe the coloring page",
+    text: "Type a clear, kid-friendly prompt with the subject, action, and setting. Each successful generation uses one page credit.",
+  },
+  {
+    title: "Download or print",
+    text: "When the page is ready, download the PNG or print it at home. If you lose the studio link, recover it with the email used at checkout.",
+  },
+];
+
+const promptTips = [
+  "Name who or what should appear in the picture.",
+  "Add an action like playing, building, baking, or exploring.",
+  "Use a simple setting such as a garden, classroom, park, or moon base.",
+  "Keep prompts age-appropriate and avoid copyrighted characters.",
+];
 
 export default function HowItWorksPage() {
   return (
-    <main className="max-w-3xl mx-auto px-4 py-16">
-      <h1 className="text-4xl font-bold mb-6">How It Works</h1>
+    <main className="mx-auto max-w-5xl px-4 py-16">
+      <section className="mb-10 rounded-lg border bg-white p-6 shadow-sm sm:p-8">
+        <p className="text-sm font-semibold uppercase tracking-wide text-[#2563eb]">
+          Simple page packs
+        </p>
+        <h1 className="mt-3 text-4xl font-bold text-gray-950">How It Works</h1>
+        <p className="mt-4 max-w-3xl text-lg leading-relaxed text-gray-600">
+          PaziPagesAI turns creative ideas into clean, printable coloring pages.
+          Buy a page pack once, use your private studio link, and create pages
+          without signing up for an account.
+        </p>
+      </section>
 
-      <p className="text-gray-700 leading-relaxed mb-6">
-        PaziPagesAI turns your ideas into clean, printable coloring pages. The
-        generator now uses a checkout-first flow: you enter a prompt, complete
-        secure payment, and then your page is created and prepared for download.
-        No account or login is required.
-      </p>
+      <section className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        {steps.map((step, index) => (
+          <article key={step.title} className="rounded-lg border bg-white p-5 shadow-sm">
+            <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-blue-50 font-bold text-[#2563eb]">
+              {index + 1}
+            </div>
+            <h2 className="text-xl font-bold text-gray-950">{step.title}</h2>
+            <p className="mt-2 leading-relaxed text-gray-600">{step.text}</p>
+          </article>
+        ))}
+      </section>
 
-      <h2 className="text-2xl font-semibold mt-10 mb-4">
-        1. Enter Your Idea as a Prompt
-      </h2>
-      <p className="text-gray-700 leading-relaxed mb-6">
-        In the Generate section, type what you want to see. Prompts can be
-        simple or detailed, depending on your creativity. Examples include:
-      </p>
+      <section className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-[1fr_320px]">
+        <div className="rounded-lg border bg-white p-6 shadow-sm">
+          <h2 className="text-2xl font-bold text-gray-950">Tips for Better Results</h2>
+          <p className="mt-2 leading-relaxed text-gray-600">
+            Clear prompts usually produce cleaner, more useful coloring pages.
+            A strong prompt tells the generator what to draw and keeps the scene simple.
+          </p>
+          <ul className="mt-5 space-y-3 text-gray-700">
+            {promptTips.map((tip) => (
+              <li key={tip} className="rounded-lg bg-gray-50 p-3">{tip}</li>
+            ))}
+          </ul>
+        </div>
 
-      <ul className="list-disc pl-6 text-gray-700 space-y-2 mb-8">
-        <li>A happy dinosaur riding a scooter</li>
-        <li>A cat baking cupcakes in a kitchen</li>
-        <li>A robot watering flowers in a garden</li>
-        <li>Two kids exploring outer space</li>
-      </ul>
+        <aside className="rounded-lg border border-blue-100 bg-blue-50 p-6 h-fit">
+          <h2 className="text-2xl font-bold text-gray-950">Need Your Link?</h2>
+          <p className="mt-2 text-gray-700">
+            If you already bought a page pack, recover your private studio link
+            with the email used at checkout.
+          </p>
+          <a
+            href="/generate/recover"
+            className="mt-5 inline-flex w-full justify-center rounded-lg bg-[#2563eb] px-5 py-3 font-semibold text-white transition hover:bg-[#1e4fc2]"
+          >
+            Recover Studio Link
+          </a>
+        </aside>
+      </section>
 
-      <p className="text-gray-700 leading-relaxed mb-6">
-        Clear, specific prompts usually produce cleaner, more print-ready
-        coloring pages.
-      </p>
-
-      <h2 className="text-2xl font-semibold mt-10 mb-4">
-        2. Complete Secure Checkout
-      </h2>
-      <p className="text-gray-700 leading-relaxed mb-6">
-        When you click the create button, you are sent to Stripe Checkout. Stripe
-        securely processes the payment. PaziPagesAI does not store your full card
-        details. Your prompt is attached to the paid checkout session so the
-        image can be created after payment is confirmed.
-      </p>
-
-      <h2 className="text-2xl font-semibold mt-10 mb-4">
-        3. AI Creates Your Coloring Page
-      </h2>
-      <p className="text-gray-700 leading-relaxed mb-6">
-        After payment, you return to a progress page. The server verifies the
-        paid Stripe session, creates your black-and-white line-art illustration,
-        uploads it to Supabase Storage, and prepares the printable file.
-      </p>
-
-      <h2 className="text-2xl font-semibold mt-10 mb-4">
-        4. Download or Print Instantly
-      </h2>
-      <p className="text-gray-700 leading-relaxed mb-6">
-        When generation finishes, you can download the PNG, print it, save it
-        for later, or create another page. Completed pages may also appear in the
-        public gallery unless removed for quality, safety, or moderation reasons.
-      </p>
-
-      <h2 className="text-2xl font-semibold mt-10 mb-4">
-        Tips for Better Results
-      </h2>
-      <p className="text-gray-700 leading-relaxed mb-4">
-        Here are a few tips for making the most of the generator:
-      </p>
-
-      <ul className="list-disc pl-6 text-gray-700 space-y-2 mb-8">
-        <li>Use descriptive words like cute, simple, friendly, or happy.</li>
-        <li>Add an action such as riding, playing, building, or exploring.</li>
-        <li>Specify details like animals, themes, holidays, or settings.</li>
-        <li>Keep prompts age-appropriate for the best kid-safe output.</li>
-      </ul>
-
-      <h2 className="text-2xl font-semibold mt-10 mb-4">
-        If Something Goes Wrong
-      </h2>
-      <p className="text-gray-700 leading-relaxed mb-6">
-        AI generation and third-party services can occasionally fail. If a paid
-        generation does not complete, save the checkout/session information shown
-        in your browser and contact support so we can review it.
-      </p>
-
-      <h2 className="text-2xl font-semibold mt-10 mb-4">
-        How We Keep It Safe
-      </h2>
-      <p className="text-gray-700 leading-relaxed mb-6">
-        PaziPagesAI uses prompt guidance, provider safety systems, and review
-        practices to avoid harmful, adult, violent, copyrighted, or inappropriate
-        content. While no AI system is perfect, we actively improve the service
-        to keep the experience family-friendly and educational.
-      </p>
-
-      <h2 className="text-2xl font-semibold mt-10 mb-4">Questions?</h2>
-      <p className="text-gray-700 leading-relaxed mb-6">
-        If you have questions about how PaziPagesAI works, need help with a
-        prompt, or need support, reach out anytime:
-      </p>
-
-      <p className="text-blue-600 font-medium text-lg break-all">
-        support@pazipagesai.com
-      </p>
-
-      <p className="text-gray-500 text-sm mt-12">
-        Last Updated: {new Date().getFullYear()}
-      </p>
+      <section className="mt-10 rounded-lg border bg-white p-6 shadow-sm">
+        <h2 className="text-2xl font-bold text-gray-950">Safety and Support</h2>
+        <p className="mt-2 leading-relaxed text-gray-600">
+          PaziPagesAI is designed for family-friendly coloring page prompts. AI
+          can still make mistakes, so adults should review pages before giving
+          them to children. If a technical issue prevents generation, contact
+          support with your checkout email or Stripe receipt.
+        </p>
+        <p className="mt-4 text-sm text-gray-500">Last updated: July 2026</p>
+      </section>
     </main>
   );
 }

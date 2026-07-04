@@ -1,120 +1,68 @@
-export const metadata = {
+﻿export const metadata = {
   title: "Content Disclaimer | PaziPagesAI",
   description:
-    "Important information about AI-generated images, content safety, accuracy, copyright, payments, and user expectations on PaziPagesAI.",
+    "Important information about AI-generated coloring pages, page packs, safety, copyrighted content, and service availability.",
 };
+
+const sections = [
+  {
+    title: "AI-Generated Coloring Pages",
+    body: "PaziPagesAI uses artificial intelligence to create printable line-art pages. Results may include mistakes, artifacts, odd details, or unexpected interpretations of a prompt.",
+  },
+  {
+    title: "Family-Friendly Review",
+    body: "The service is designed for kid-friendly prompts, but AI is not perfect. Adults should review generated pages before giving them to children or using them in a classroom.",
+  },
+  {
+    title: "Page Packs and Availability",
+    body: "Page packs depend on third-party services including Stripe, OpenAI, Supabase, and Resend. Payment confirmation does not guarantee uninterrupted service or a perfect result.",
+  },
+  {
+    title: "Copyrighted or Trademarked Characters",
+    body: "Do not request protected characters, brand-owned characters, or copyrighted material. Users are responsible for prompts and how generated images are used.",
+  },
+  {
+    title: "User Responsibility",
+    body: "Generated images are intended for personal, educational, and creative use. You are responsible for complying with applicable laws, school rules, and intellectual property requirements.",
+  },
+  {
+    title: "Support",
+    body: "If a technical issue prevents a paid generation from completing, contact support with your checkout email, Stripe receipt, or studio link details so we can review it.",
+  },
+];
 
 export default function DisclaimerPage() {
   return (
-    <main className="max-w-3xl mx-auto px-4 py-16">
-      <h1 className="text-4xl font-bold mb-6">Content Disclaimer</h1>
+    <main className="mx-auto max-w-4xl px-4 py-16">
+      <section className="mb-8 rounded-lg border bg-white p-6 shadow-sm sm:p-8">
+        <p className="text-sm font-semibold uppercase tracking-wide text-[#2563eb]">Disclaimer</p>
+        <h1 className="mt-3 text-4xl font-bold text-gray-950">Content Disclaimer</h1>
+        <p className="mt-3 max-w-3xl leading-relaxed text-gray-600">
+          PaziPagesAI is a creative tool for generating printable coloring pages.
+          Please read these notes before using generated content.
+        </p>
+        <p className="mt-4 text-sm text-gray-500">Last updated: July 2026</p>
+      </section>
 
-      <p className="text-gray-700 leading-relaxed mb-6">
-        The information, images, and tools provided on <strong>PaziPagesAI</strong>
-        are intended for creative, educational, and recreational use. By using
-        this website, you acknowledge and agree to the terms outlined in this
-        Content Disclaimer.
-      </p>
+      <div className="space-y-4">
+        {sections.map((section) => (
+          <section key={section.title} className="rounded-lg border bg-white p-5 shadow-sm">
+            <h2 className="text-2xl font-bold text-gray-950">{section.title}</h2>
+            <p className="mt-2 leading-relaxed text-gray-600">{section.body}</p>
+          </section>
+        ))}
+      </div>
 
-      <h2 className="text-2xl font-semibold mt-10 mb-4">
-        AI-Generated Content
-      </h2>
-      <p className="text-gray-700 leading-relaxed mb-6">
-        All illustrations generated on this website are created using artificial
-        intelligence. While we strive to produce clean, safe-for-kids coloring
-        pages, AI-generated content may sometimes include imperfections,
-        inconsistencies, or inaccuracies. We review and filter results whenever
-        possible, but we cannot guarantee that all outputs will be error-free.
-      </p>
-
-      <h2 className="text-2xl font-semibold mt-10 mb-4">
-        Paid Generation and Service Availability
-      </h2>
-      <p className="text-gray-700 leading-relaxed mb-6">
-        Custom coloring pages are generated after checkout is completed through
-        Stripe. Generation depends on third-party services including Stripe,
-        OpenAI, and Supabase. Payment confirmation does not guarantee a perfect
-        result or uninterrupted service. If a paid generation fails because of a
-        technical issue, contact support with your checkout/session information
-        so we can review it.
-      </p>
-
-      <h2 className="text-2xl font-semibold mt-10 mb-4">
-        No Copyrighted or Trademarked Characters
-      </h2>
-      <p className="text-gray-700 leading-relaxed mb-6">
-        PaziPagesAI does not intentionally create or promote content based on
-        copyrighted, trademarked, or brand-owned characters. Users are
-        responsible for ensuring their prompts do not request protected
-        characters or intellectual property. Any resemblance to copyrighted
-        characters is purely coincidental and unintentional.
-      </p>
-
-      <h2 className="text-2xl font-semibold mt-10 mb-4">
-        Safety and Kid-Friendly Guidelines
-      </h2>
-      <p className="text-gray-700 leading-relaxed mb-6">
-        We aim to maintain a safe and family-friendly environment. Our generation
-        guidelines help prevent harmful, adult, violent, or inappropriate
-        content. However, since outputs are generated from user prompts, we
-        cannot guarantee full prevention of undesired content in every case. If
-        you encounter an image that seems inappropriate or not suitable for
-        children, please contact us so we can review it.
-      </p>
-
-      <h2 className="text-2xl font-semibold mt-10 mb-4">
-        Accuracy of Information
-      </h2>
-      <p className="text-gray-700 leading-relaxed mb-6">
-        While we work hard to ensure that information and tools on PaziPagesAI
-        are accurate and up to date, we cannot guarantee completeness,
-        reliability, or suitability for any specific purpose. All use of this
-        website is at your own discretion and risk.
-      </p>
-
-      <h2 className="text-2xl font-semibold mt-10 mb-4">
-        User Responsibility
-      </h2>
-      <p className="text-gray-700 leading-relaxed mb-6">
-        You are responsible for the prompts you provide, how you use generated
-        images, and ensuring compliance with applicable laws and intellectual
-        property rules. Generated images are provided for personal, educational,
-        or non-commercial use unless otherwise specified.
-      </p>
-
-      <h2 className="text-2xl font-semibold mt-10 mb-4">
-        Limitation of Liability
-      </h2>
-      <p className="text-gray-700 leading-relaxed mb-6">
-        PaziPagesAI is provided as-is without warranties of any kind. We are not
-        liable for damages, losses, or issues arising from use or inability to
-        use the site, including technical errors, third-party service issues, AI
-        inconsistencies, or user-generated content.
-      </p>
-
-      <h2 className="text-2xl font-semibold mt-10 mb-4">
-        Changes to This Disclaimer
-      </h2>
-      <p className="text-gray-700 leading-relaxed mb-6">
-        We may update or modify this Content Disclaimer at any time. Updated
-        versions will be posted on this page with a revised Last Updated date.
-      </p>
-
-      <h2 className="text-2xl font-semibold mt-10 mb-4">
-        Contact Information
-      </h2>
-      <p className="text-gray-700 leading-relaxed">
-        If you have questions or concerns about this Disclaimer, please reach out
-        at:
-      </p>
-
-      <p className="text-blue-600 font-medium text-lg break-all mt-2">
-        support@pazipagesai.com
-      </p>
-
-      <p className="text-gray-500 text-sm mt-12">
-        Last Updated: {new Date().getFullYear()}
-      </p>
+      <section className="mt-8 rounded-lg border border-blue-100 bg-blue-50 p-6">
+        <h2 className="text-2xl font-bold text-gray-950">Contact Support</h2>
+        <p className="mt-2 text-gray-700">
+          Email{" "}
+          <a href="mailto:support@pazipagesai.com" className="font-semibold text-[#2563eb] underline">
+            support@pazipagesai.com
+          </a>{" "}
+          for questions or concerns.
+        </p>
+      </section>
     </main>
   );
 }
