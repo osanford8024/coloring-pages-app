@@ -1,36 +1,25 @@
+const footerLinks = [
+  { href: "/faq", label: "FAQ" },
+  { href: "/privacy", label: "Privacy Policy" },
+  { href: "/terms", label: "Terms of Service" },
+  { href: "/cookies", label: "Cookie Policy" },
+  { href: "/disclaimer", label: "Content Disclaimer" },
+];
+
 export default function Footer() {
   return (
-    <footer className="w-full border-t bg-white h-[60px] flex items-center justify-center">
-      <div className="text-sm text-gray-600 flex items-center gap-4">
+    <footer className="w-full border-t bg-white min-h-[60px] py-4 flex items-center justify-center">
+      <div className="text-sm text-gray-600 flex flex-wrap items-center justify-center gap-4 px-4">
+        <span className="font-medium text-gray-800">PaziPagesAI</span>
 
-        <span className="font-medium text-gray-800">
-          PaziPagesAI
-        </span>
-
-        <span className="text-gray-400">•</span>
-
-        <a href="/privacy" className="hover:text-black transition-colors">
-          Privacy Policy
-        </a>
-
-        <span className="text-gray-400">•</span>
-
-        <a href="/terms" className="hover:text-black transition-colors">
-          Terms of Service
-        </a>
-
-        <span className="text-gray-400">•</span>
-
-        <a href="/cookies" className="hover:text-black transition-colors">
-          Cookie Policy
-        </a>
-
-        <span className="text-gray-400">•</span>
-
-        <a href="/disclaimer" className="hover:text-black transition-colors">
-          Content Disclaimer
-        </a>
-
+        {footerLinks.map((link) => (
+          <span key={link.href} className="flex items-center gap-4">
+            <span className="text-gray-400">&middot;</span>
+            <a href={link.href} className="hover:text-black transition-colors">
+              {link.label}
+            </a>
+          </span>
+        ))}
       </div>
     </footer>
   );

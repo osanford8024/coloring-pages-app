@@ -1,65 +1,63 @@
+import Link from "next/link";
+import ContactForm from "./ContactForm";
+
 export const metadata = {
   title: "Contact Us | PaziPagesAI",
   description:
-    "Contact the PaziPagesAI team for support, feedback, questions, or partnership inquiries.",
+    "Contact PaziPagesAI for page pack support, lost studio links, billing questions, feedback, and family-friendly AI coloring page help.",
 };
 
 export default function ContactPage() {
   return (
-    <main className="max-w-3xl mx-auto px-4 py-16">
-      <h1 className="text-4xl font-bold mb-6">Contact Us</h1>
-
-      <p className="text-gray-700 leading-relaxed mb-6">
-        We’re here to help! Whether you have a question, want to share feedback,
-        or need assistance using PaziPagesAI, feel free to reach out anytime.
-        We value our users and do our best to respond as quickly as possible.
-      </p>
-
-      <h2 className="text-2xl font-semibold mt-10 mb-4">Support Email</h2>
-      <p className="text-gray-700 leading-relaxed mb-6">
-        The easiest way to contact us is by email. For technical issues,
-        account concerns, business inquiries, or content questions, use the
-        address below:
-      </p>
-
-      <p className="text-blue-600 font-medium text-lg break-all mb-8">
-        support@pazipagesai.com
-      </p>
-
-      <h2 className="text-2xl font-semibold mt-10 mb-4">What We Can Help With</h2>
-      <ul className="list-disc pl-6 text-gray-700 space-y-2 mb-8">
-        <li>Troubleshooting image generation</li>
-        <li>Reporting an issue or bug</li>
-        <li>Requesting a feature or improvement</li>
-        <li>Inquiries related to child safety and content guidelines</li>
-        <li>Business and partnership opportunities</li>
-      </ul>
-
-      <h2 className="text-2xl font-semibold mt-10 mb-4">
-        Response Time
-      </h2>
-      <p className="text-gray-700 leading-relaxed mb-6">
-        Most emails are answered within <strong>24–48 hours</strong>. During
-        weekends or holidays, responses may take a bit longer, but we appreciate
-        your patience and always strive to assist you as quickly as possible.
-      </p>
-
-      <h2 className="text-2xl font-semibold mt-10 mb-4">
-        Community & Safety
-      </h2>
-      <p className="text-gray-700 leading-relaxed mb-6">
-        PaziPagesAI is designed with children and families in mind. If you ever
-        encounter an image that feels unsafe, inappropriate, or not kid-friendly,
-        please let us know right away. Your feedback helps us improve our
-        filtering and continue offering a safe creative space for young artists.
-      </p>
-
-      <div className="mt-12 p-6 border rounded-xl bg-gray-50">
-        <h3 className="text-xl font-semibold mb-2">We’re Here To Help</h3>
-        <p className="text-gray-700">
-          Reach out at any time — your input helps make PaziPagesAI better for
-          everyone.
+    <main className="max-w-4xl mx-auto px-4 py-16">
+      <div className="mb-8 max-w-3xl">
+        <h1 className="text-4xl font-bold mb-4">Contact Us</h1>
+        <p className="text-gray-700 leading-relaxed">
+          Send a message for support, billing questions, feedback, or help with
+          a page pack. If your question is about a purchase, include the email
+          used at checkout so we can review it faster.
         </p>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6 items-start">
+        <ContactForm />
+
+        <aside className="space-y-4">
+          <section className="rounded-lg border border-blue-100 bg-blue-50 p-5">
+            <h2 className="text-xl font-bold mb-2">Lost Your Studio Link?</h2>
+            <p className="text-gray-700 text-sm leading-relaxed mb-4">
+              If you already bought a page pack, try recovering the private
+              studio link first.
+            </p>
+            <Link
+              href="/generate/recover"
+              className="inline-block w-full text-center px-4 py-2 rounded-lg bg-[#2563eb] text-white font-medium hover:bg-[#1e4fc2] transition"
+            >
+              Recover Link
+            </Link>
+          </section>
+
+          <section className="rounded-lg border bg-white p-5">
+            <h2 className="text-xl font-bold mb-2">Support Email</h2>
+            <p className="text-gray-700 text-sm leading-relaxed mb-3">
+              You can also email us directly.
+            </p>
+            <a
+              href="mailto:support@pazipagesai.com"
+              className="text-[#2563eb] font-medium break-all hover:underline"
+            >
+              support@pazipagesai.com
+            </a>
+          </section>
+
+          <section className="rounded-lg border bg-white p-5">
+            <h2 className="text-xl font-bold mb-2">Response Time</h2>
+            <p className="text-gray-700 text-sm leading-relaxed">
+              Most messages are answered within 24 to 48 hours. Weekends and
+              holidays may take a bit longer.
+            </p>
+          </section>
+        </aside>
       </div>
     </main>
   );
