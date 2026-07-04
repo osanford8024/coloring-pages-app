@@ -1,8 +1,8 @@
-﻿import "./globals.css";
+import "./globals.css";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 
-const MAINTENANCE_MODE = false; // production open for testing
+const MAINTENANCE_MODE = true; // production maintenance mode
 
 export const metadata = {
   title: "PaziPagesAI",
