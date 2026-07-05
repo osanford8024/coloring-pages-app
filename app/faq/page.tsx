@@ -206,11 +206,11 @@ export default function FAQPage() {
       <section className="mt-10 text-gray-700 leading-relaxed">
         <h2 className="text-2xl font-semibold mb-3">Still Have Questions?</h2>
         <p>
-          Email support at{" "}
-          <a href="mailto:support@pazipagesai.com" className="text-[#2563eb] underline">
-            support@pazipagesai.com
-          </a>
-          .
+          Use the{" "}
+          <Link href="/contact" className="text-[#2563eb] underline">
+            contact form
+          </Link>{" "}
+          for support, billing questions, or missing page pack help.
         </p>
       </section>
     </main>

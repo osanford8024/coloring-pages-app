@@ -1,4 +1,4 @@
-﻿export const metadata = {
+export const metadata = {
   title: "Privacy Policy | PaziPagesAI",
   description:
     "How PaziPagesAI handles prompts, page pack purchases, private studio links, support emails, and generated coloring page data.",
@@ -56,9 +56,9 @@ export default function PrivacyPage() {
       <section className="mt-8 rounded-lg border border-blue-100 bg-blue-50 p-6">
         <h2 className="text-2xl font-bold text-gray-950">Contact Us</h2>
         <p className="mt-2 text-gray-700">
-          Questions about privacy or data requests can be sent to{" "}
-          <a href="mailto:support@pazipagesai.com" className="font-semibold text-[#2563eb] underline">
-            support@pazipagesai.com
+          Questions about privacy or data requests can be sent through the{" "}
+          <a href="/contact" className="font-semibold text-[#2563eb] underline">
+            contact form
           </a>
           .
         </p>

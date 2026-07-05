@@ -1,6 +1,7 @@
 import "./globals.css";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
+import GalleryFeatureImage from "./components/GalleryFeatureImage";
 
 const MAINTENANCE_MODE =
   process.env.VERCEL_ENV === "production" && process.env.MAINTENANCE_MODE !== "false";
@@ -58,35 +59,16 @@ export default function RootLayout({
                 </div>
 
                 <p className="text-sm text-gray-500">
-                  Need help with a recent purchase? Email{" "}
-                  <a href="mailto:support@pazipagesai.com" className="font-medium text-[#2563eb] underline">
-                    support@pazipagesai.com
+                  Need help with a recent purchase? Use the{" "}
+                  <a href="/contact" className="font-medium text-[#2563eb] underline">
+                    contact form
                   </a>
                   .
                 </p>
               </div>
 
               <div className="rounded-lg border bg-white p-6 shadow-xl">
-                <div className="aspect-[4/5] rounded-lg border-2 border-dashed border-gray-200 bg-[#fffdf8] p-5">
-                  <div className="h-full rounded-lg bg-white p-5 shadow-inner">
-                    <div className="mx-auto mb-6 h-3 w-24 rounded-full bg-gray-200" />
-                    <div className="relative mx-auto h-64 max-w-64">
-                      <div className="absolute left-1/2 top-4 h-28 w-28 -translate-x-1/2 rounded-full border-4 border-gray-900" />
-                      <div className="absolute left-[22%] top-32 h-20 w-36 rounded-t-full border-4 border-b-0 border-gray-900" />
-                      <div className="absolute left-[16%] top-48 h-16 w-44 rounded-lg border-4 border-gray-900" />
-                      <div className="absolute left-[33%] top-14 h-3 w-3 rounded-full bg-gray-900" />
-                      <div className="absolute right-[33%] top-14 h-3 w-3 rounded-full bg-gray-900" />
-                      <div className="absolute left-1/2 top-24 h-8 w-14 -translate-x-1/2 rounded-b-full border-4 border-t-0 border-gray-900" />
-                      <div className="absolute left-8 top-24 h-12 w-12 rounded-full border-4 border-gray-900" />
-                      <div className="absolute right-8 top-24 h-12 w-12 rounded-full border-4 border-gray-900" />
-                    </div>
-                    <div className="mt-8 space-y-3">
-                      <div className="h-3 rounded-full bg-gray-200" />
-                      <div className="h-3 w-4/5 rounded-full bg-gray-200" />
-                      <div className="h-3 w-2/3 rounded-full bg-gray-200" />
-                    </div>
-                  </div>
-                </div>
+                <GalleryFeatureImage label="Gallery preview" />
 
                 <div className="mt-5 flex items-center justify-between gap-4 text-sm">
                   <span className="font-medium text-gray-900">Printable coloring pages</span>

@@ -1,4 +1,4 @@
-﻿export const metadata = {
+export const metadata = {
   title: "Terms of Service | PaziPagesAI",
   description:
     "Terms for using PaziPagesAI page packs, private studio links, AI-generated coloring pages, payments, and support.",
@@ -64,11 +64,11 @@ export default function TermsPage() {
       <section className="mt-8 rounded-lg border border-blue-100 bg-blue-50 p-6">
         <h2 className="text-2xl font-bold text-gray-950">Questions?</h2>
         <p className="mt-2 text-gray-700">
-          Contact{" "}
-          <a href="mailto:support@pazipagesai.com" className="font-semibold text-[#2563eb] underline">
-            support@pazipagesai.com
+          Use the{" "}
+          <a href="/contact" className="font-semibold text-[#2563eb] underline">
+            contact form
           </a>{" "}
-          with payment or service questions.
+          for payment or service questions.
         </p>
       </section>
     </main>

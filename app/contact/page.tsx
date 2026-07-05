@@ -38,15 +38,16 @@ export default function ContactPage() {
           </section>
 
           <section className="rounded-lg border bg-white p-5">
-            <h2 className="text-xl font-bold mb-2">Support Email</h2>
+            <h2 className="text-xl font-bold mb-2">Need Help?</h2>
             <p className="text-gray-700 text-sm leading-relaxed mb-3">
-              You can also email us directly.
+              Use the contact form on this page and include your checkout email,
+              Stripe receipt, or studio link details when relevant.
             </p>
             <a
-              href="mailto:support@pazipagesai.com"
-              className="text-[#2563eb] font-medium break-all hover:underline"
+              href="#contact-form"
+              className="inline-block px-4 py-2 rounded-lg border border-[#2563eb] text-[#2563eb] font-medium hover:bg-blue-50 transition"
             >
-              support@pazipagesai.com
+              Go to Contact Form
             </a>
           </section>
 

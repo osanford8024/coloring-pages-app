@@ -1,4 +1,4 @@
-﻿export const metadata = {
+export const metadata = {
   title: "Content Disclaimer | PaziPagesAI",
   description:
     "Important information about AI-generated coloring pages, page packs, safety, copyrighted content, and service availability.",
@@ -56,9 +56,9 @@ export default function DisclaimerPage() {
       <section className="mt-8 rounded-lg border border-blue-100 bg-blue-50 p-6">
         <h2 className="text-2xl font-bold text-gray-950">Contact Support</h2>
         <p className="mt-2 text-gray-700">
-          Email{" "}
-          <a href="mailto:support@pazipagesai.com" className="font-semibold text-[#2563eb] underline">
-            support@pazipagesai.com
+          Use the{" "}
+          <a href="/contact" className="font-semibold text-[#2563eb] underline">
+            contact form
           </a>{" "}
           for questions or concerns.
         </p>

@@ -54,7 +54,7 @@ export default function ContactForm() {
   }
 
   return (
-    <form onSubmit={submitContact} className="bg-white rounded-lg shadow-md p-6 space-y-4">
+    <form id="contact-form" onSubmit={submitContact} className="bg-white rounded-lg shadow-md p-6 space-y-4">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="space-y-2">
           <label htmlFor="name" className="text-sm font-semibold">Name</label>

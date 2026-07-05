@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import GalleryFeatureImage from "./components/GalleryFeatureImage";
 
 const pagePacks = [
   { name: "Starter", pages: "6 pages", price: "$5", note: "Buy 5, get 1 free." },
@@ -12,16 +13,19 @@ const previewImages = [
     src: "/blog/thumbnails/prompts.png",
     alt: "Printable coloring page prompt ideas",
     label: "Prompt ideas",
+    href: "/blog/ai-coloring-guide",
   },
   {
     src: "/blog/thumbnails/classroom-activities.png",
     alt: "Classroom coloring activities",
     label: "Classroom activities",
+    href: "/blog/classroom-coloring-activities",
   },
   {
     src: "/blog/thumbnails/rainy-day.png",
     alt: "Rainy day coloring pages",
     label: "Rainy day pages",
+    href: "/blog/rainy-day-coloring-pages",
   },
 ];
 
@@ -98,26 +102,7 @@ export default function HomePage() {
               </span>
             </div>
 
-            <div className="aspect-[4/5] rounded-lg border bg-[#fffdf8] p-5">
-              <div className="h-full rounded-lg bg-white p-5 shadow-inner">
-                <div className="mx-auto mb-5 h-3 w-24 rounded-full bg-gray-200" />
-                <div className="relative mx-auto h-64 max-w-64">
-                  <div className="absolute left-1/2 top-4 h-28 w-28 -translate-x-1/2 rounded-full border-4 border-gray-900" />
-                  <div className="absolute left-[22%] top-32 h-20 w-36 rounded-t-full border-4 border-b-0 border-gray-900" />
-                  <div className="absolute left-[15%] top-48 h-16 w-44 rounded-lg border-4 border-gray-900" />
-                  <div className="absolute left-[33%] top-14 h-3 w-3 rounded-full bg-gray-900" />
-                  <div className="absolute right-[33%] top-14 h-3 w-3 rounded-full bg-gray-900" />
-                  <div className="absolute left-1/2 top-24 h-8 w-14 -translate-x-1/2 rounded-b-full border-4 border-t-0 border-gray-900" />
-                  <div className="absolute left-8 top-24 h-12 w-12 rounded-full border-4 border-gray-900" />
-                  <div className="absolute right-8 top-24 h-12 w-12 rounded-full border-4 border-gray-900" />
-                </div>
-                <div className="mt-7 space-y-3">
-                  <div className="h-3 rounded-full bg-gray-200" />
-                  <div className="h-3 w-4/5 rounded-full bg-gray-200" />
-                  <div className="h-3 w-2/3 rounded-full bg-gray-200" />
-                </div>
-              </div>
-            </div>
+            <GalleryFeatureImage label="Fresh gallery example" />
           </div>
         </div>
       </section>
@@ -161,7 +146,11 @@ export default function HomePage() {
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           {previewImages.map((image) => (
-            <article key={image.src} className="overflow-hidden rounded-lg border bg-white shadow-sm">
+            <Link
+              key={image.src}
+              href={image.href}
+              className="group overflow-hidden rounded-lg border bg-white shadow-sm transition hover:border-[#2563eb] hover:shadow-md"
+            >
               <div className="relative aspect-[4/3] bg-gray-100">
                 <Image
                   src={image.src}
@@ -172,9 +161,9 @@ export default function HomePage() {
                 />
               </div>
               <div className="p-4">
-                <p className="font-semibold text-gray-950">{image.label}</p>
+                <p className="font-semibold text-gray-950 transition group-hover:text-[#2563eb]">{image.label}</p>
               </div>
-            </article>
+            </Link>
           ))}
         </div>
       </section>
