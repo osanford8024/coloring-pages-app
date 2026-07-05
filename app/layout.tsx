@@ -2,7 +2,8 @@ import "./globals.css";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 
-const MAINTENANCE_MODE = true; // production maintenance mode
+const MAINTENANCE_MODE =
+  process.env.VERCEL_ENV === "production" && process.env.MAINTENANCE_MODE !== "false";
 
 export const metadata = {
   title: "PaziPagesAI",
