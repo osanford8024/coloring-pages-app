@@ -37,7 +37,7 @@ export default function BlogHomePage() {
       description:
         "A collection of creative, kid-friendly coloring ideas to spark imagination and help children explore new themes.",
       href: "/blog/coloring-ideas",
-      thumbnail: "/blog/thumbnails/ideas.png",
+      thumbnail: "/blog/thumbnails/ideas-2026.png",
       date: "Updated 2025",
     },
     {
@@ -45,7 +45,7 @@ export default function BlogHomePage() {
       description:
         "Learn how coloring helps kids build focus, creativity, fine motor skills, and emotional expression.",
       href: "/blog/benefits-of-coloring",
-      thumbnail: "/blog/thumbnails/benefits.png",
+      thumbnail: "/blog/thumbnails/benefits-2026.png",
       date: "Updated 2025",
     },
     {
@@ -53,7 +53,7 @@ export default function BlogHomePage() {
       description:
         "A simple guide to writing effective prompts for clean, printable AI-generated coloring pages.",
       href: "/blog/ai-coloring-guide",
-      thumbnail: "/blog/thumbnails/prompts.png",
+      thumbnail: "/blog/thumbnails/prompts-2026.png",
       date: "Updated 2025",
     },
   ];

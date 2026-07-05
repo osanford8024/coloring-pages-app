@@ -10,7 +10,7 @@ const pagePacks = [
 
 const previewImages = [
   {
-    src: "/blog/thumbnails/prompts.png",
+    src: "/blog/thumbnails/prompts-2026.png",
     alt: "Printable coloring page prompt ideas",
     label: "Prompt ideas",
     href: "/blog/ai-coloring-guide",
