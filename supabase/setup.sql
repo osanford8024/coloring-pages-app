@@ -65,6 +65,63 @@ alter table public.generation_jobs
 
 alter table public.generation_jobs
   alter column stripe_session_id drop not null;
+
+alter table public.credit_sessions
+  alter column stripe_session_id drop not null;
+
+create table if not exists public.promo_campaigns (
+  id uuid primary key default gen_random_uuid(),
+  code text not null unique,
+  label text not null,
+  credits_per_redemption integer not null default 1 check (credits_per_redemption > 0),
+  max_redemptions integer check (max_redemptions is null or max_redemptions > 0),
+  active boolean not null default false,
+  starts_at timestamptz,
+  expires_at timestamptz,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create index if not exists promo_campaigns_code_idx
+  on public.promo_campaigns (code);
+
+create index if not exists promo_campaigns_active_idx
+  on public.promo_campaigns (active);
+
+alter table public.promo_campaigns enable row level security;
+
+create table if not exists public.promo_redemptions (
+  id uuid primary key default gen_random_uuid(),
+  campaign_id uuid not null references public.promo_campaigns(id) on delete cascade,
+  email text not null,
+  credit_session_id uuid not null references public.credit_sessions(id) on delete cascade,
+  redeemed_at timestamptz not null default now(),
+  unique (campaign_id, email)
+);
+
+create index if not exists promo_redemptions_campaign_id_idx
+  on public.promo_redemptions (campaign_id);
+
+create index if not exists promo_redemptions_email_idx
+  on public.promo_redemptions (email);
+
+alter table public.promo_redemptions enable row level security;
+
+insert into public.promo_campaigns (
+  code,
+  label,
+  credits_per_redemption,
+  max_redemptions,
+  active
+)
+values (
+  'LAUNCH50',
+  'Launch Giveaway',
+  1,
+  50,
+  false
+)
+on conflict (code) do nothing;
 alter table public.images enable row level security;
 
 drop policy if exists "Anyone can read generated images" on public.images;
