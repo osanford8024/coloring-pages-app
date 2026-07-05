@@ -3,7 +3,7 @@ import { NextRequest } from "next/server";
 import Stripe from "stripe";
 
 export const CREDIT_PACKS = {
-  starter: { id: "starter", name: "Starter Pack", credits: 5, unitAmount: 500 },
+  starter: { id: "starter", name: "Starter Pack", credits: 6, unitAmount: 500 },
   popular: { id: "popular", name: "Family Pack", credits: 12, unitAmount: 1000 },
   classroom: { id: "classroom", name: "Classroom Pack", credits: 30, unitAmount: 2000 },
 } as const;

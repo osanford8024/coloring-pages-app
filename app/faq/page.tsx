@@ -27,6 +27,11 @@ const faqs = [
       "Yes. Open your private studio link from the email or recovery message on the device you want to use. Since there is no login, the private link is what gives access to the remaining pages.",
   },
   {
+    question: "Why is my old studio link not loading?",
+    answer:
+      "Your private studio link is tied to an active page pack. If the pack is depleted, refunded, removed, or no longer active, the link may stop loading your studio. Use the recovery page to resend any active links tied to your checkout email, or contact support if you believe pages are missing.",
+  },
+  {
     question: "Can I print the coloring pages?",
     answer:
       "Yes. Generated pages are designed as black-and-white printable coloring pages. You can download the PNG file or use the print option to print at home or save as a PDF.",

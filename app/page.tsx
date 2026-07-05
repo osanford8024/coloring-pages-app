@@ -2,9 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 
 const pagePacks = [
-  { name: "Starter", pages: "5 pages", price: "$5", note: "Try a few custom ideas." },
-  { name: "Family Pack", pages: "12 pages", price: "$10", note: "Best value for home activities." },
-  { name: "Classroom", pages: "30 pages", price: "$20", note: "Great for lessons and groups." },
+  { name: "Starter", pages: "6 pages", price: "$5", note: "Buy 5, get 1 free." },
+  { name: "Family Pack", pages: "12 pages", price: "$10", note: "Buy 10, get 2 free." },
+  { name: "Classroom", pages: "30 pages", price: "$20", note: "Buy 20, get 10 free." },
 ];
 
 const previewImages = [

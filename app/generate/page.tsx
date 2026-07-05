@@ -11,23 +11,23 @@ const PACKS = [
   {
     id: "starter",
     title: "Starter",
-    pages: 5,
+    pages: 6,
     price: "$5",
-    note: "Try a few ideas",
+    note: "Buy 5, get 1 free",
   },
   {
     id: "popular",
     title: "Family Pack",
     pages: 12,
     price: "$10",
-    note: "Best value for home",
+    note: "Buy 10, get 2 free",
   },
   {
     id: "classroom",
     title: "Classroom",
     pages: 30,
     price: "$20",
-    note: "For lessons and groups",
+    note: "Buy 20, get 10 free",
   },
 ];
 
