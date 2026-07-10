@@ -285,6 +285,11 @@ function GenerateContent() {
                 className="w-full px-4 py-3 rounded-lg border bg-white resize-none text-base"
                 required
               />
+              <p className="text-xs leading-relaxed text-gray-500">
+                For cleaner results, ask for simple views like "side view of a race car" or
+                "one child standing with a kite". Complex action poses, hands, wheels, and
+                extreme angles may be simplified.
+              </p>
             </div>
 
             <button

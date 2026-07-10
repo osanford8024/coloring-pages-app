@@ -48,7 +48,102 @@ export function getSupabaseAdminClient() {
   });
 }
 
+function includesAny(value: string, words: string[]) {
+  return words.some((word) => value.includes(word));
+}
+
+function buildSubjectQualityRules(userPrompt: string) {
+  const prompt = userPrompt.toLowerCase();
+  const rules: string[] = [];
+
+  const hasPerson = includesAny(prompt, [
+    "person",
+    "people",
+    "child",
+    "children",
+    "kid",
+    "kids",
+    "boy",
+    "girl",
+    "man",
+    "woman",
+    "teacher",
+    "student",
+    "family",
+    "skater",
+    "skateboarder",
+    "player",
+    "dancer",
+    "hands",
+    "feet",
+  ]);
+
+  const hasVehicle = includesAny(prompt, [
+    "car",
+    "truck",
+    "bus",
+    "van",
+    "vehicle",
+    "race car",
+    "train",
+    "tractor",
+    "motorcycle",
+    "bike",
+    "bicycle",
+    "scooter",
+    "skateboard",
+    "wheel",
+    "wheels",
+  ]);
+
+  const hasActionPose = includesAny(prompt, [
+    "skateboard",
+    "bike",
+    "bicycle",
+    "scooter",
+    "running",
+    "jumping",
+    "dancing",
+    "sports",
+    "soccer",
+    "basketball",
+    "baseball",
+    "football",
+    "surfing",
+    "skiing",
+  ]);
+
+  if (hasPerson) {
+    rules.push(
+      "- For people: draw exactly one natural body per person with two arms, two hands, two legs, and two feet. Keep limbs connected correctly and avoid extra, missing, duplicated, or twisted limbs.",
+      "- Keep hands simple and readable. Use mitten-like hands or very simple fingers instead of detailed realistic hands.",
+      "- Use simple front-facing, side-facing, or gentle three-quarter poses. Avoid foreshortened limbs, crossed limbs, or complex overlapping anatomy."
+    );
+  }
+
+  if (hasVehicle) {
+    rules.push(
+      "- For vehicles and wheeled objects: use a clean side view or simple three-quarter view. Keep wheels round, aligned, evenly sized, and attached to the vehicle or board.",
+      "- Avoid confusing interiors, distorted windows, tangled steering wheels, impossible axles, or extra wheels unless explicitly requested.",
+      "- Use simple stable shapes for cars, trucks, bikes, skateboards, and scooters so they look recognizable to children."
+    );
+  }
+
+  if (hasActionPose) {
+    rules.push(
+      "- For action scenes: simplify the pose. Show the full subject clearly, with all important limbs visible, naturally attached, and not hidden behind objects.",
+      "- Prefer a calm snapshot of the activity over a dramatic extreme-angle action pose."
+    );
+  }
+
+  return rules.length
+    ? `\nSUBJECT ACCURACY RULES:\n${rules.join("\n")}`
+    : "";
+}
+
 function buildSafeMarginPrompt(userPrompt: string) {
+  const subjectQualityRules = buildSubjectQualityRules(userPrompt);
+
   return `
 Create a black-and-white coloring page in cartoon line art.
 
@@ -62,6 +157,18 @@ FORMAT:
 - Keep the subject centered and sized appropriately, leaving clean breathing room around it.
 - Use bold, clean black outlines only. No shading, no grayscale, no colors.
 - Plain white background.
+
+COMPOSITION:
+- Make a simple coloring-book page, not a complex illustration.
+- Prefer one clear main subject with simple supporting details.
+- Avoid clutter, tiny details, complicated perspective, extreme camera angles, or heavy overlapping shapes.
+- Use stable, readable shapes that a child can recognize and color.
+- If the requested idea is complex, simplify it into a clean, easy-to-color version.
+
+QUALITY CONTROL:
+- Before finalizing, check the drawing for obvious mistakes.
+- Remove extra limbs, missing limbs, disconnected body parts, distorted wheels, duplicate wheels, tangled lines, and impossible object geometry.
+- Make sure important parts are connected naturally and the subject is easy to understand.${subjectQualityRules}
 
 CONTENT:
 ${userPrompt}
